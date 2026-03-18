@@ -1,0 +1,4564 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A1 Uniforms-Dress to Impress</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    :root {
+      --navy: #0a0f2e;
+      --gold: #d4a843;
+      --gold2: #f0c96e;
+      --white: #f5f5f0;
+      --glass: rgba(255, 255, 255, .07);
+      --gb: rgba(212, 168, 67, .25);
+      --accent: #1a2560;
+    }
+
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scrollbar-color: #d4a843 #040c3d;
+    }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--navy);
+      color: var(--white);
+      overflow-x: hidden;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    button {
+      font-family: inherit;
+    }
+
+    img,
+    canvas,
+    video,
+    iframe {
+      max-width: 100%;
+    }
+
+    /* LOADER  */
+    #loader {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      background: var(--navy);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: opacity .5s;
+    }
+
+    .ll {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.5rem, 8vw, 4rem);
+      color: var(--gold);
+      letter-spacing: 5px;
+      animation: ldP 1s ease infinite alternate;
+    }
+
+    .lbw {
+      width: clamp(140px, 40vw, 200px);
+      height: 3px;
+      background: rgba(212, 168, 67, .2);
+      border-radius: 2px;
+      margin-top: 18px;
+      overflow: hidden;
+    }
+
+    .lb {
+      height: 100%;
+      background: linear-gradient(90deg, var(--gold), var(--gold2));
+      width: 0;
+      animation: ldF 1.5s ease forwards;
+    }
+
+    .lt {
+      color: rgba(245, 245, 240, .4);
+      font-size: .72rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-top: 12px;
+    }
+
+    @keyframes ldP {
+      from {
+        opacity: .4
+      }
+
+      to {
+        opacity: 1
+      }
+    }
+
+    @keyframes ldF {
+      to {
+        width: 100%
+      }
+    }
+
+    /*  CUSTOM CURSOR  */
+    .cur {
+      width: 18px;
+      height: 18px;
+      background: var(--gold);
+      border-radius: 50%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 99999;
+      transition: transform .15s ease, background .2s;
+      mix-blend-mode: difference;
+    }
+
+    .curt {
+      width: 38px;
+      height: 38px;
+      border: 2px solid var(--gold);
+      border-radius: 50%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 99998;
+      transition: transform .38s;
+      opacity: .45;
+    }
+
+    @media(max-width:1024px) {
+
+      .cur,
+      .curt {
+        display: none;
+      }
+    }
+
+    /*  PARTICLES  */
+    #pc {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /*  NAVBAR */
+    .nb {
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      padding: 18px clamp(16px, 4vw, 40px);
+      background: rgba(10, 15, 46, .85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--gb);
+      transition: all .4s;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .nb.sc {
+      padding: 10px clamp(16px, 4vw, 40px);
+      background: rgba(10, 15, 46, .98);
+      box-shadow: 0 4px 30px rgba(212, 168, 67, .15);
+    }
+
+    .nbrand {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(1.6rem, 4vw, 2.2rem);
+      color: var(--gold);
+      letter-spacing: 3px;
+      flex-shrink: 0;
+    }
+
+    .nbrand span {
+      color: var(--white);
+    }
+
+    .nl {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      list-style: none;
+    }
+
+    .nl a {
+      color: var(--white);
+      font-weight: 500;
+      font-size: .82rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 6px 8px;
+      position: relative;
+      transition: color .3s;
+      white-space: nowrap;
+    }
+
+    .nl a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--gold);
+      transition: width .3s;
+    }
+
+    .nl a:hover {
+      color: var(--gold);
+    }
+
+    .nl a:hover::after {
+      width: 100%;
+    }
+
+    .ncta {
+      background: linear-gradient(135deg, var(--gold), var(--gold2)) !important;
+      color: var(--navy) !important;
+      padding: 8px 20px !important;
+      border-radius: 30px;
+      font-weight: 700 !important;
+    }
+
+    .ncta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(212, 168, 67, .5) !important;
+    }
+
+    .ncta::after {
+      display: none !important;
+    }
+
+    .hb {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 6px;
+    }
+
+    .hb span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--gold);
+      transition: all .35s;
+      border-radius: 2px;
+    }
+
+    .hb.o span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .hb.o span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hb.o span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+    @media(max-width:900px) {
+      .nl {
+        display: none;
+      }
+
+      .hb {
+        display: flex;
+      }
+
+      .nb {
+        padding: 13px 18px;
+      }
+    }
+
+    @media(max-width:480px) {
+      .nb {
+        padding: 11px 14px;
+      }
+
+      .nbrand {
+        font-size: 1.4rem;
+      }
+    }
+
+    /* MOBILE DRAWER */
+    .mnav {
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      background: rgba(10, 15, 46, .97);
+      backdrop-filter: blur(20px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 28px;
+      padding-top: 35px;
+      transform: translateX(100%);
+      transition: transform .45s cubic-bezier(.77, 0, .175, 1);
+    }
+
+    .mnav.o {
+      transform: translateX(0);
+    }
+
+    .mnav a {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2rem, 8vw, 3rem);
+      color: var(--white);
+      letter-spacing: 4px;
+      transition: color .3s;
+    }
+
+    .mnav a:hover {
+      color: var(--gold);
+    }
+
+    @media(min-width: 426px) and (max-width: 900px) {
+      .mnav {
+        padding-top: 70px;
+      }
+    }
+
+    /* HERO SLIDER */
+    #hero {
+      position: relative;
+      width: 100%;
+      height: calc(100vh + 90px);
+      min-height: 700px;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    @media(max-width:640px) {
+      #hero {
+        height: calc(100svh + 130px);
+        min-height: 600px;
+      }
+    }
+
+    @media(max-width:480px) {
+      #hero {
+        height: calc(100svh + 160px);
+        min-height: 580px;
+      }
+    }
+
+    @media(max-width:380px) {
+      #hero {
+        height: calc(100svh + 190px);
+        min-height: 560px;
+      }
+    }
+
+    #hero {
+      min-height: 100svh;
+    }
+
+    .sl-track {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .sl-slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 1.4s cubic-bezier(.4, 0, .2, 1);
+      pointer-events: none;
+    }
+
+    .sl-slide.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .sl-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      transform: scale(1.0);
+      transition: transform 8s ease;
+    }
+
+    .sl-slide.active .sl-canvas {
+      transform: scale(1.08);
+    }
+
+    .sl-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(105deg, rgba(5, 8, 24, .92) 0%, rgba(5, 8, 24, .72) 40%, rgba(5, 8, 24, .25) 75%, rgba(5, 8, 24, .1) 100%), linear-gradient(to top, rgba(5, 8, 24, .85) 0%, transparent 45%);
+    }
+
+    .sl-content {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      padding: 0 clamp(22px, 8vw, 110px);
+      padding-top: 80px;
+      padding-bottom: 160px;
+    }
+
+    .sl-inner {
+      max-width: 660px;
+    }
+
+    @media(max-width:640px) {
+      .sl-content {
+        padding-bottom: 210px;
+        padding-left: 18px;
+        padding-right: 18px;
+        align-items: flex-start;
+        padding-top: 90px;
+      }
+    }
+
+    @media(max-width:480px) {
+      .sl-content {
+        padding-bottom: 240px;
+      }
+    }
+
+    @media(max-width:380px) {
+      .sl-content {
+        padding-bottom: 270px;
+      }
+    }
+
+    .sl-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(212, 168, 67, .1);
+      border: 1px solid rgba(212, 168, 67, .45);
+      border-radius: 40px;
+      padding: 6px 20px;
+      font-size: .7rem;
+      letter-spacing: 3.5px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 18px;
+      backdrop-filter: blur(12px);
+      opacity: 0;
+      transform: translateX(-30px);
+      transition: opacity .65s .2s ease, transform .65s .2s ease;
+    }
+
+    .sl-slide.active .sl-badge {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .sl-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3.2rem, 9vw, 8.5rem);
+      line-height: .88;
+      letter-spacing: 3px;
+      margin-bottom: 18px;
+      opacity: 0;
+      transform: translateX(-40px);
+      transition: opacity .7s .38s ease, transform .7s .38s ease;
+    }
+
+    .sl-slide.active .sl-title {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .sl-title .wh {
+      color: var(--white);
+      display: block;
+    }
+
+    .sl-title .go {
+      display: block;
+      background: linear-gradient(90deg, var(--gold) 0%, var(--gold2) 50%, var(--gold) 100%);
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-size: 200%;
+      animation: shim 3s linear infinite;
+    }
+
+    .sl-desc {
+      font-size: clamp(.88rem, 1.8vw, 1.05rem);
+      color: rgba(245, 245, 240, .7);
+      line-height: 1.8;
+      margin-bottom: 32px;
+      max-width: 460px;
+      opacity: 0;
+      transform: translateX(-30px);
+      transition: opacity .65s .55s ease, transform .65s .55s ease;
+    }
+
+    .sl-slide.active .sl-desc {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .sl-btns {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity .6s .72s ease, transform .6s .72s ease;
+    }
+
+    .sl-slide.active .sl-btns {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media(max-width:400px) {
+      .sl-btns {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .sl-btns a {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+      }
+    }
+
+    .sl-deco {
+      position: absolute;
+      right: clamp(20px, 6vw, 80px);
+      top: 50%;
+      transform: translateY(-50%);
+      text-align: right;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity .8s 1s ease;
+    }
+
+    .sl-slide.active .sl-deco {
+      opacity: 1;
+    }
+
+    .sl-deco-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(7rem, 20vw, 18rem);
+      color: rgba(212, 168, 67, .055);
+      line-height: 1;
+      letter-spacing: 6px;
+      display: block;
+    }
+
+    .sl-deco-label {
+      font-size: .65rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: rgba(212, 168, 67, .28);
+      display: block;
+    }
+
+    @media(min-width:641px) and (max-width:768px) {
+      .sl-deco {
+        display: none;
+      }
+    }
+
+    .sl-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 30;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: rgba(10, 15, 46, .55);
+      border: 1px solid rgba(212, 168, 67, .28);
+      color: var(--gold);
+      font-size: .95rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(14px);
+      transition: all .35s cubic-bezier(.34, 1.56, .64, 1);
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    #hero:hover .sl-arrow {
+      opacity: 1;
+    }
+
+    .sl-arrow:hover {
+      background: rgba(212, 168, 67, .22);
+      border-color: var(--gold);
+      transform: translateY(-50%) scale(1.12);
+      box-shadow: 0 0 28px rgba(212, 168, 67, .35);
+    }
+
+    .sl-prev {
+      left: clamp(14px, 2.5vw, 28px);
+    }
+
+    .sl-next {
+      right: clamp(14px, 2.5vw, 28px);
+    }
+
+    @media(max-width:600px) {
+      .sl-arrow {
+        opacity: 1 !important;
+        width: 40px;
+        height: 40px;
+        font-size: .78rem;
+      }
+
+      .sl-prev {
+        left: 8px;
+      }
+
+      .sl-next {
+        right: 8px;
+      }
+    }
+
+    .sl-bar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 31;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      padding: 0 clamp(22px, 6vw, 70px) 110px;
+      pointer-events: none;
+    }
+
+    .sl-bar>* {
+      pointer-events: all;
+    }
+
+    @media(max-width:640px) {
+      .sl-bar {
+        padding: 0 14px 158px;
+        justify-content: center;
+        gap: 14px;
+      }
+
+      .sl-thumbs {
+        display: none;
+      }
+    }
+
+    @media(max-width:480px) {
+      .sl-bar {
+        padding-bottom: 178px;
+      }
+    }
+
+    @media(max-width:380px) {
+      .sl-bar {
+        padding-bottom: 200px;
+      }
+    }
+
+    @media(min-width:641px) and (max-width:768px) {
+      .sl-bar {
+        padding: 0 20px 120px;
+        flex-wrap: wrap;
+        gap: 12px;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .sl-thumbs {
+        display: none;
+      }
+
+      .sl-counter {
+        font-size: .85rem;
+      }
+
+      .sl-content {
+        padding-left: 22px;
+        padding-right: 22px;
+        padding-top: 80px;
+        padding-bottom: 190px;
+        align-items: flex-start;
+      }
+
+      .sl-progress {
+        bottom: 100px;
+      }
+    }
+
+    .sl-thumbs {
+      display: flex;
+      gap: 8px;
+    }
+
+    .sl-thumb {
+      width: 72px;
+      height: 44px;
+      border-radius: 6px;
+      overflow: hidden;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: border-color .3s, transform .3s;
+      opacity: .55;
+    }
+
+    .sl-thumb canvas {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .sl-thumb.active {
+      border-color: var(--gold);
+      opacity: 1;
+      transform: scale(1.06);
+    }
+
+    .sl-dots {
+      display: flex;
+      gap: 7px;
+      align-items: center;
+    }
+
+    .sl-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: rgba(212, 168, 67, .3);
+      border: none;
+      cursor: pointer;
+      transition: all .3s;
+      padding: 0;
+    }
+
+    .sl-dot.active {
+      background: var(--gold);
+      transform: scale(1.5);
+      box-shadow: 0 0 10px rgba(212, 168, 67, .5);
+    }
+
+    .sl-counter {
+      font-size: .75rem;
+      letter-spacing: 3px;
+      color: rgba(245, 245, 240, .5);
+    }
+
+    .sl-counter .cn {
+      color: var(--gold);
+      font-size: 1.1rem;
+      font-family: 'Bebas Neue', sans-serif;
+    }
+
+    .sl-progress {
+      position: absolute;
+      bottom: 100px;
+      left: 0;
+      height: 2px;
+      background: rgba(212, 168, 67, .18);
+      width: 100%;
+      z-index: 32;
+    }
+
+    @media(max-width:640px) {
+      .sl-progress {
+        bottom: 140px;
+      }
+    }
+
+    @media(max-width:480px) {
+      .sl-progress {
+        bottom: 162px;
+      }
+    }
+
+    @media(max-width:380px) {
+      .sl-progress {
+        bottom: 184px;
+      }
+    }
+
+    #slProg {
+      height: 100%;
+      background: linear-gradient(90deg, var(--gold), var(--gold2));
+      width: 0%;
+    }
+
+    #slProg.go {
+      transition: width 7s linear;
+    }
+
+    /* Stats */
+    .hstats {
+      display: flex;
+      gap: clamp(16px, 5vw, 50px);
+      justify-content: center;
+      flex-wrap: wrap;
+      padding: 52px clamp(16px, 4vw, 40px) 44px;
+      background: linear-gradient(135deg, #0a0f2e 0%, #0f1540 50%, #0a0f2e 100%);
+      border-bottom: 1px solid rgba(212, 168, 67, .12);
+      position: relative;
+      z-index: 2;
+    }
+
+    .sl-stats {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 30;
+      padding: 22px clamp(16px, 4vw, 60px);
+      background: rgba(5, 8, 24, .92);
+      border-top: 1px solid rgba(212, 168, 67, .3);
+      border-bottom: none;
+      flex-wrap: nowrap;
+      gap: clamp(10px, 4vw, 50px);
+      backdrop-filter: blur(12px);
+    }
+
+    .sl-stats .sn {
+      font-size: clamp(1.4rem, 3vw, 2.4rem);
+    }
+
+    .sl-stats .sl {
+      font-size: clamp(.58rem, 1vw, .7rem);
+    }
+
+    @media(max-width:640px) {
+      .sl-stats {
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 12px 10px;
+        gap: 8px 14px;
+      }
+
+      .sl-stats .si {
+        flex: 1 1 calc(50% - 14px);
+        min-width: 80px;
+      }
+
+      .sl-stats .sn {
+        font-size: clamp(1.2rem, 5vw, 1.6rem);
+      }
+
+      .sl-stats .sl {
+        font-size: clamp(.52rem, 2.2vw, .62rem);
+      }
+    }
+
+    @media(max-width:380px) {
+      .sl-stats {
+        padding: 10px 8px;
+        gap: 6px 10px;
+      }
+
+      .sl-stats .si {
+        flex: 1 1 calc(50% - 10px);
+      }
+
+      .sl-stats .sn {
+        font-size: 1.1rem;
+      }
+
+      .sl-stats .sl {
+        font-size: .5rem;
+        letter-spacing: 1px;
+      }
+    }
+
+    .si {
+      text-align: center;
+    }
+
+    .sn {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      color: var(--gold);
+      line-height: 1;
+      display: block;
+    }
+
+    .sl {
+      font-size: .7rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(245, 245, 240, .5);
+    }
+
+    /* Scroll hint */
+    .scrl {
+      position: absolute;
+      bottom: 100px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 32;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      opacity: 0;
+      animation: fd .8s 1.4s ease forwards;
+    }
+
+    .scrl span {
+      font-size: .65rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(245, 245, 240, .35);
+    }
+
+    .scrl-l {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+      animation: lg 2s ease infinite;
+    }
+
+    @media(max-width:640px) {
+      .scrl {
+        display: none;
+      }
+    }
+
+    /* KEYFRAMES */
+    @keyframes shim {
+      to {
+        background-position: 200% center
+      }
+    }
+
+    @keyframes fd {
+      from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(10px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0)
+      }
+    }
+
+    @keyframes lg {
+      0% {
+        transform: scaleY(0);
+        transform-origin: top
+      }
+
+      50% {
+        transform: scaleY(1);
+        transform-origin: top
+      }
+
+      51% {
+        transform: scaleY(1);
+        transform-origin: bottom
+      }
+
+      100% {
+        transform: scaleY(0);
+        transform-origin: bottom
+      }
+    }
+
+    @keyframes fu {
+      from {
+        opacity: 0;
+        transform: translateY(28px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    @keyframes sp2 {
+      to {
+        transform: rotate(360deg)
+      }
+    }
+
+    @keyframes f3d {
+
+      0%,
+      100% {
+        transform: translateY(0px)
+      }
+
+      30% {
+        transform: translateY(-18px)
+      }
+
+      60% {
+        transform: translateY(-8px)
+      }
+    }
+
+    @keyframes pb {
+
+      0%,
+      100% {
+        transform: translateY(0)
+      }
+
+      50% {
+        transform: translateY(-11px)
+      }
+    }
+
+    @keyframes mqa {
+      to {
+        transform: translateX(-50%)
+      }
+    }
+
+    /* BUTTONS */
+    .bg {
+      background: linear-gradient(135deg, var(--gold), var(--gold2));
+      color: var(--navy);
+      font-weight: 700;
+      padding: 13px 34px;
+      border-radius: 50px;
+      border: none;
+      font-size: clamp(.83rem, 2vw, 1rem);
+      letter-spacing: 1px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: transform .25s, box-shadow .3s;
+    }
+
+    .bg:hover {
+      transform: translateY(-4px) scale(1.03);
+      box-shadow: 0 16px 40px rgba(212, 168, 67, .5);
+    }
+
+    .bo {
+      background: transparent;
+      color: var(--gold);
+      border: 2px solid var(--gold);
+      padding: 11px 32px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: clamp(.83rem, 2vw, 1rem);
+      letter-spacing: 1px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all .3s;
+    }
+
+    .bo:hover {
+      background: var(--gold);
+      color: var(--navy);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(212, 168, 67, .35);
+    }
+
+    @media(max-width:400px) {
+
+      .bg,
+      .bo {
+        padding: 12px 24px;
+        font-size: .83rem;
+      }
+    }
+
+    /* MARQUEE */
+    .mq {
+      background: linear-gradient(90deg, var(--gold), var(--gold2), var(--gold));
+      padding: 12px 0;
+      overflow: hidden;
+      position: relative;
+      z-index: 2;
+    }
+
+    .mqt {
+      display: flex;
+      animation: mqa 22s linear infinite;
+      white-space: nowrap;
+    }
+
+    .mqt span {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem;
+      letter-spacing: 3px;
+      color: var(--navy);
+      padding: 0 28px;
+      flex-shrink: 0;
+    }
+
+    .mqt span i {
+      margin-right: 7px;
+    }
+
+    @media(max-width:360px) {
+      .mqt span {
+        font-size: .9rem;
+        padding: 0 18px;
+      }
+    }
+
+    /* SECTION COMMONS */
+    section {
+      position: relative;
+      z-index: 1;
+    }
+
+    .slbl {
+      display: inline-block;
+      font-size: .7rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: rgba(212, 168, 67, .1);
+      border: 1px solid var(--gb);
+      border-radius: 20px;
+      padding: 4px 16px;
+      margin-bottom: 13px;
+    }
+
+    .stit {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.2rem, 6vw, 5rem);
+      line-height: 1;
+      letter-spacing: 2px;
+    }
+
+    .stit .g {
+      color: var(--gold);
+    }
+
+    .sdiv {
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--gold2));
+      border-radius: 2px;
+      margin: 13px 0 20px;
+    }
+
+    .sdiv.c {
+      margin: 13px auto 20px;
+    }
+
+    .con {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 clamp(16px, 4vw, 40px);
+    }
+
+    .tc {
+      text-align: center;
+    }
+
+    @media(max-width:360px) {
+      .stit {
+        font-size: 2rem;
+      }
+    }
+
+    /* ABOUT */
+    #about {
+      padding: clamp(60px, 10vw, 120px) 0;
+        background: rgba(26, 37, 96, .15);
+    }
+
+    .ag {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(28px, 6vw, 80px);
+      align-items: center;
+    }
+
+    @media(max-width:900px) {
+      .ag {
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+    }
+
+    .aib {
+      width: 100%;
+      aspect-ratio: 3/4;
+      max-width: 460px;
+      background: linear-gradient(160deg, #1a2a6e 0%, #0d1848 50%, #0a0f2e 100%);
+      border: 1px solid var(--gb);
+      border-radius: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 60px rgba(212, 168, 67, .18), 0 0 120px rgba(212, 168, 67, .09),
+        inset 0 0 80px rgba(10, 15, 46, .4);
+    }
+
+    .aib::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(45deg, rgba(212, 168, 67, .03) 0, rgba(212, 168, 67, .03) 1px,
+          transparent 1px, transparent 20px);
+    }
+
+    @media(max-width:900px) {
+      .aib {
+        display: flex !important;
+        max-width: 320px;
+        margin: 0 auto;
+        aspect-ratio: 3/4;
+        height: auto;
+      }
+    }
+
+    @media(max-width:600px) {
+      .aib {
+        aspect-ratio: 2/3;
+        max-width: 240px;
+      }
+    }
+
+    @media(max-width:480px) {
+      .aib {
+        max-width: 260px;
+      }
+    }
+
+    .asw {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: f3d 3s ease-in-out infinite;
+    }
+
+    .asw img {
+      display: block;
+      width: 88%;
+      height: 92%;
+      object-fit: contain;
+      object-position: center bottom;
+    }
+
+    .acg {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    @media(max-width:600px) {
+      .acg {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media(max-width:480px) {
+      .acg {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .ac {
+      background: var(--glass);
+      border: 1px solid var(--gb);
+      border-radius: 18px;
+      padding: clamp(18px, 3vw, 26px);
+      backdrop-filter: blur(20px);
+      transition: transform .4s, box-shadow .4s;
+    }
+
+    .ac:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 18px 45px rgba(212, 168, 67, .14);
+    }
+
+    .ai {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, var(--gold), var(--gold2));
+      border-radius: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      color: var(--navy);
+      margin-bottom: 14px;
+    }
+
+    .ac h6 {
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 5px;
+      font-size: .88rem;
+    }
+
+    .ac p {
+      font-size: .8rem;
+      color: rgba(245, 245, 240, .6);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .ap {
+      color: rgba(245, 245, 240, .7);
+      line-height: 1.8;
+      font-size: clamp(.88rem, 2vw, 1.04rem);
+      margin-bottom: 26px;
+    }
+
+    /* PRODUCTS */
+    #products {
+      /* padding: clamp(60px, 10vw, 120px) 0; */
+      background: rgba(26, 37, 96, .15);
+    }
+
+    .pg {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(210px, 45vw), 1fr));
+      gap: clamp(12px, 3vw, 22px);
+    }
+
+    @media(max-width:600px) {
+      .pg {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+      }
+    }
+
+    @media(max-width:360px) {
+      .pg {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .fc {
+      perspective: 1200px;
+      height: clamp(210px, 28vw, 275px);
+      cursor: pointer;
+      display: block;
+    }
+
+    @media(max-width:600px) {
+      .fc {
+        height: 185px;
+      }
+    }
+
+    @media(max-width:400px) {
+      .fc {
+        height: 190px;
+      }
+    }
+
+    @media(max-width:360px) {
+      .fc {
+        height: 200px;
+      }
+    }
+
+    .fci {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform .7s cubic-bezier(.4, 0, .2, 1);
+      transform-style: preserve-3d;
+    }
+
+    .fc:hover .fci {
+      transform: rotateY(180deg);
+    }
+
+    .ff,
+    .fb {
+      position: absolute;
+      inset: 0;
+      border-radius: 17px;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .ff {
+      background: var(--glass);
+      border: 1px solid var(--gb);
+      backdrop-filter: blur(20px);
+    }
+
+    .fb {
+      background: linear-gradient(135deg, var(--gold), var(--gold2));
+      transform: rotateY(180deg);
+      color: var(--navy);
+    }
+
+    .fci2 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      color: var(--gold);
+      margin-bottom: 12px;
+      transition: transform .3s;
+    }
+
+    .fc:hover .fci2 {
+      transform: scale(1.1);
+    }
+
+    .fct {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+      letter-spacing: 2px;
+      color: var(--white);
+    }
+
+    .fctg {
+      font-size: .68rem;
+      color: rgba(245, 245, 240, .42);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    .fcv {
+      font-size: .62rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(212, 168, 67, .45);
+      margin-top: 7px;
+    }
+
+    .fb .fbi {
+      font-size: 2rem;
+      color: var(--navy);
+      margin-bottom: 9px;
+    }
+
+    .fb .fbt {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(1.2rem, 2.5vw, 1.7rem);
+      letter-spacing: 2px;
+      color: var(--navy);
+    }
+
+    .fb .fbd {
+      font-size: clamp(.68rem, 1.5vw, .8rem);
+      color: rgba(10, 15, 46, .72);
+      text-align: center;
+      margin-top: 6px;
+      line-height: 1.45;
+    }
+
+    .fb .fbc {
+      margin-top: 11px;
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--navy);
+      background: rgba(10, 15, 46, .15);
+      padding: 5px 12px;
+      border-radius: 20px;
+    }
+
+    /* Bulk card */
+    .frow {
+      margin-top: clamp(28px, 5vw, 50px);
+      display: flex;
+      justify-content: center;
+    }
+
+    .c3w {
+      perspective: 1000px;
+      width: 100%;
+      max-width: 750px;
+    }
+
+    .c3 {
+      background: var(--glass);
+      border: 1px solid var(--gb);
+      backdrop-filter: blur(20px);
+      border-radius: 22px;
+      padding: clamp(26px, 5vw, 46px) clamp(20px, 4vw, 38px);
+      transition: transform .1s ease, box-shadow .3s;
+      transform-style: preserve-3d;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .c3::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(212, 168, 67, .05), transparent 60%);
+      border-radius: 22px;
+    }
+
+    .c3g {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(212, 168, 67, .15), transparent 60%);
+      border-radius: 22px;
+      opacity: 0;
+      transition: opacity .3s;
+    }
+
+    .c3:hover .c3g {
+      opacity: 1;
+    }
+
+    .c3c {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
+
+    .btiers {
+      display: flex;
+      gap: clamp(8px, 3vw, 18px);
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+
+    @media(max-width:600px) {
+      .btiers {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .bt {
+        width: 100%;
+        max-width: 300px;
+      }
+    }
+
+    @media(max-width:768px) {
+      .c3 {
+        padding: 20px 16px;
+      }
+
+      .btiers {
+        gap: 10px;
+      }
+
+      .bt {
+        padding: 12px 18px;
+      }
+    }
+
+    .bt {
+      text-align: center;
+      padding: clamp(12px, 3vw, 18px) clamp(16px, 4vw, 26px);
+      background: rgba(212, 168, 67, .1);
+      border: 1px solid var(--gb);
+      border-radius: 14px;
+    }
+
+    .bt .bn {
+      font-family: 'Bebas Neue';
+      font-size: clamp(1.4rem, 4vw, 2rem);
+      color: var(--gold);
+    }
+
+    .bt .bl {
+      font-size: .68rem;
+      color: rgba(245, 245, 240, .5);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    /* 3D CAROUSEL */
+    #carousel-section {
+      padding: clamp(40px, 7vw, 70px) 0;
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+        background: rgba(26, 37, 96, .15);
+    }
+
+    #carousel-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(212, 168, 67, .06) 0%, transparent 70%), radial-gradient(ellipse 50% 40% at 10% 80%, rgba(26, 37, 96, .4) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .cr-scene {
+      width: 100%;
+      height: clamp(260px, 38vw, 420px);
+      perspective: clamp(700px, 100vw, 1200px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      margin-top: clamp(32px, 5vw, 52px);
+    }
+
+    @media(max-width:600px) {
+      .cr-scene {
+        height: clamp(240px, 65vw, 320px);
+      }
+
+      #carousel-section {
+        padding: clamp(32px, 6vw, 60px) 0;
+      }
+    }
+
+    .cr-ring {
+      width: var(--cr-w, 220px);
+      height: var(--cr-h, 300px);
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform .85s cubic-bezier(.16, 1, .3, 1);
+      cursor: grab;
+    }
+
+    .cr-ring.dragging {
+      cursor: grabbing;
+      transition: none;
+    }
+
+    .cr-card {
+      position: absolute;
+      width: var(--cr-w, 220px);
+      height: var(--cr-h, 300px);
+      top: 0;
+      left: 0;
+      border-radius: 14px;
+      overflow: hidden;
+      backface-visibility: hidden;
+      box-shadow: 0 24px 60px rgba(102, 181, 212, .65), 0 0 0 1px rgba(212, 168, 67, .08);
+      transition: box-shadow .4s ease;
+    }
+
+    .cr-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .6s ease;
+    }
+
+    .cr-card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(10, 15, 46, .92) 0%, rgba(10, 15, 46, .3) 45%, transparent 100%);
+      opacity: 0;
+      transition: opacity .4s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: clamp(12px, 2.5vw, 22px);
+    }
+
+    .cr-card-overlay h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(1rem, 2.2vw, 1.35rem);
+      letter-spacing: 2px;
+      color: var(--white);
+      line-height: 1.15;
+    }
+
+    .cr-card-overlay p {
+      font-size: clamp(.6rem, 1vw, .72rem);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-top: 4px;
+    }
+
+    .cr-card.cr-active {
+      box-shadow: 0 36px 90px rgba(180, 27, 27, .7), 0 0 0 1px rgba(184, 140, 40, .35), 0 0 50px rgba(67, 202, 212, .12);
+    }
+
+    .cr-card.cr-active .cr-card-overlay {
+      opacity: 1;
+    }
+
+    .cr-card.cr-active img {
+      transform: scale(1.05);
+    }
+
+    .cr-card-refl {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: var(--cr-w, 220px);
+      height: var(--cr-h, 300px);
+      border-radius: 14px;
+      overflow: hidden;
+      transform: rotateX(180deg) translateY(calc(-100% - 2px));
+      mask-image: linear-gradient(to bottom, rgba(0, 0, 0, .18) 0%, transparent 55%);
+      -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, .18) 0%, transparent 55%);
+      pointer-events: none;
+    }
+
+    .cr-card-refl img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .cr-floor {
+      position: absolute;
+      bottom: clamp(-24px, -5vh, -46px);
+      left: 50%;
+      transform: translateX(-50%);
+      width: clamp(180px, 55vw, 520px);
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(212, 168, 67, .18), transparent);
+      pointer-events: none;
+    }
+
+    .cr-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(14px, 3vw, 28px);
+      margin-top: clamp(28px, 5vw, 44px);
+    }
+
+    @media(max-width:480px) {
+      .cr-controls {
+        gap: 12px;
+        margin-top: 20px;
+      }
+    }
+
+    .cr-btn {
+      width: clamp(40px, 6vw, 50px);
+      height: clamp(40px, 6vw, 50px);
+      border-radius: 50%;
+      border: 1px solid rgba(212, 168, 67, .35);
+      background: rgba(212, 168, 67, .07);
+      color: var(--gold);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: clamp(13px, 2vw, 17px);
+      transition: all .25s ease;
+      backdrop-filter: blur(8px);
+      min-width: 44px;
+      min-height: 44px;
+    }
+
+    .cr-btn:hover {
+      background: rgba(212, 168, 67, .18);
+      border-color: rgba(212, 168, 67, .7);
+      box-shadow: 0 0 18px rgba(212, 168, 67, .2);
+      transform: scale(1.08);
+    }
+
+    .cr-btn:active {
+      transform: scale(.93);
+    }
+
+    .cr-dots {
+      display: flex;
+      gap: clamp(6px, 1.2vw, 9px);
+      align-items: center;
+    }
+
+    @media(max-width:480px) {
+      .cr-dots {
+        gap: 8px;
+      }
+    }
+
+    .cr-dot {
+      width: clamp(5px, .85vw, 7px);
+      height: clamp(5px, .85vw, 7px);
+      border-radius: 50%;
+      background: rgba(212, 168, 67, .2);
+      cursor: pointer;
+      transition: all .3s ease;
+      border: none;
+      padding: 0;
+    }
+
+    .cr-dot.cr-dot-active {
+      background: var(--gold);
+      box-shadow: 0 0 10px rgba(212, 168, 67, .55);
+      transform: scale(1.45);
+    }
+
+    .cr-counter {
+      text-align: center;
+      margin-top: 14px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(.95rem, 2vw, 1.3rem);
+      letter-spacing: 3px;
+      color: rgba(245, 245, 240, .25);
+    }
+
+    .cr-counter span {
+      color: var(--gold);
+    }
+
+    .cr-hint {
+      text-align: center;
+      font-size: clamp(.55rem, .9vw, .62rem);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(245, 245, 240, .18);
+      margin-top: 10px;
+    }
+
+    /* WHY US */
+    #why {
+      padding: clamp(60px, 10vw, 120px) 0;
+        background: rgba(26, 37, 96, .15);
+    }
+
+    .wg {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(28px, 6vw, 80px);
+      align-items: center;
+    }
+
+    @media(max-width:900px) {
+      .wg {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .wg>div:last-child {
+        text-align: center;
+      }
+
+      #rc {
+        width: 220px !important;
+        height: 220px !important;
+      }
+    }
+
+    @media(max-width:480px) {
+      #rc {
+        width: 180px !important;
+        height: 180px !important;
+      }
+
+      .witem {
+        padding: 14px 16px;
+      }
+
+      .wn {
+        font-size: 1.8rem;
+        min-width: 32px;
+      }
+    }
+
+    .wi {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .witem {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      padding: clamp(18px, 3vw, 24px);
+      background: var(--glass);
+      border: 1px solid var(--gb);
+      border-radius: 16px;
+      backdrop-filter: blur(15px);
+      transition: all .4s;
+    }
+
+    .witem:hover {
+      transform: translateX(7px);
+      border-color: var(--gold);
+      box-shadow: 0 8px 28px rgba(212, 168, 67, .14);
+    }
+
+    .wn {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.5rem;
+      color: var(--gold);
+      opacity: .3;
+      line-height: 1;
+      min-width: 38px;
+    }
+
+    .wt h5 {
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 5px;
+      font-size: .94rem;
+    }
+
+    .wt p {
+      font-size: .82rem;
+      color: rgba(245, 245, 240, .6);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .rw {
+      position: relative;
+      display: inline-block;
+    }
+
+    .rc {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+
+    .rb {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      color: var(--gold);
+    }
+
+    .rs {
+      font-size: .65rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(245, 245, 240, .5);
+    }
+
+    .rl {
+      display: flex;
+      gap: clamp(8px, 3vw, 22px);
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+
+    .rli {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: .76rem;
+      color: rgba(245, 245, 240, .6);
+    }
+
+    .rld {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+    }
+
+    @media(max-width:900px) {
+      .rw canvas {
+        width: 220px !important;
+        height: 220px !important;
+      }
+    }
+
+    @media(max-width:480px) {
+      .rw canvas {
+        width: 190px !important;
+        height: 190px !important;
+      }
+    }
+
+    /* FEEDBACK */
+    #feedback {
+      padding: clamp(60px, 10vw, 120px) 0;
+      background: rgba(26, 37, 96, .15);
+    }
+
+    .fbf {
+      background: var(--glass);
+      border: 1px solid var(--gb);
+      border-radius: 22px;
+      padding: clamp(26px, 5vw, 46px);
+      backdrop-filter: blur(20px);
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    @media(max-width:600px) {
+      .fbf {
+        padding: 22px 16px;
+      }
+    }
+
+    .fr2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    @media(max-width:600px) {
+      .fr2 {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+    }
+
+    .fg {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+
+    .flbl {
+      font-size: .76rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: rgba(245, 245, 240, .65);
+    }
+
+    .fctl,
+    .fcsl {
+      background: rgba(255, 255, 255, .06);
+      border: 1px solid var(--gb);
+      color: var(--white);
+      border-radius: 11px;
+      padding: 12px 15px;
+      font-family: 'Outfit', sans-serif;
+      font-size: .9rem;
+      outline: none;
+      transition: border-color .3s, box-shadow .3s;
+      width: 100%;
+    }
+
+    @media(max-width:768px) {
+
+      .fctl,
+      .fcsl {
+        padding: 14px 15px;
+        font-size: 1rem;
+      }
+    }
+
+    .fctl:focus,
+    .fcsl:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(212, 168, 67, .14);
+      background: rgba(255, 255, 255, .09);
+    }
+
+    .fctl::placeholder {
+      color: rgba(245, 245, 240, .3);
+    }
+
+    textarea.fctl {
+      resize: vertical;
+      min-height: 108px;
+    }
+
+    .fcsl option {
+      background: var(--navy);
+    }
+
+    .sr {
+      display: flex;
+      gap: 8px;
+      flex-direction: row-reverse;
+      justify-content: flex-end;
+    }
+
+    .sr input {
+      display: none;
+    }
+
+    .sr label {
+      font-size: 1.85rem;
+      color: rgba(245, 245, 240, .2);
+      cursor: pointer;
+      transition: color .2s;
+    }
+
+    .sr label:hover,
+    .sr label:hover~label,
+    .sr input:checked~label {
+      color: var(--gold);
+    }
+
+    /* CONTACT */
+    #contact {
+      padding: clamp(60px, 10vw, 120px) 0;
+        background: rgba(26, 37, 96, .15);
+    }
+
+    .ccr {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: clamp(12px, 3vw, 22px);
+    }
+
+    @media(max-width:900px) {
+      .ccr {
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+    }
+
+    @media(min-width:600px) and (max-width:900px) {
+      .ccr {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .ccr>.cc:last-child {
+        grid-column: 1/-1;
+      }
+    }
+
+    .cc {
+      background: var(--glass);
+      border: 1px solid var(--gb);
+      border-radius: 20px;
+      padding: clamp(22px, 4vw, 36px);
+      backdrop-filter: blur(20px);
+      transition: transform .4s, box-shadow .4s;
+    }
+
+    .cc:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 18px 45px rgba(212, 168, 67, .12);
+    }
+
+    .cci {
+      width: 46px;
+      height: 46px;
+      background: linear-gradient(135deg, var(--gold), var(--gold2));
+      border-radius: 11px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.15rem;
+      color: var(--navy);
+      margin-bottom: 12px;
+    }
+
+    .cc h6 {
+      font-weight: 700;
+      color: var(--gold);
+      font-size: .76rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .cc p {
+      color: rgba(245, 245, 240, .65);
+      font-size: .86rem;
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    .cc a {
+      color: var(--gold);
+    }
+
+    .mb {
+      background: linear-gradient(135deg, #1a2560, #0a0f2e);
+      border: 1px solid var(--gb);
+      border-radius: 18px;
+      height: clamp(200px, 28vw, 290px);
+      margin: clamp(22px, 4vw, 38px) 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    @media(max-width:480px) {
+      .mb {
+        height: 180px;
+      }
+    }
+
+    .mb::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(0deg, rgba(212, 168, 67, .03) 0, rgba(212, 168, 67, .03) 1px,
+          transparent 1px, transparent 30px), repeating-linear-gradient(90deg, rgba(212, 168, 67, .03) 0, rgba(212, 168, 67, .03) 1px,
+          transparent 1px, transparent 30px);
+    }
+
+    .mp {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      animation: pb 2s ease-in-out infinite;
+    }
+
+    .mp i {
+      font-size: 3.2rem;
+      color: var(--gold);
+    }
+
+    .mp p {
+      color: rgba(245, 245, 240, .55);
+      font-size: .76rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-top: 9px;
+    }
+
+    .mp a {
+      color: var(--gold);
+      font-size: .78rem;
+      border-bottom: 1px solid var(--gold);
+      margin-top: 7px;
+      display: inline-block;
+    }
+
+    .oh {
+      font-family: 'Bebas Neue';
+      font-size: clamp(1.7rem, 4vw, 2.2rem);
+      letter-spacing: 2px;
+      color: var(--gold);
+      margin-bottom: 18px;
+    }
+
+    .og {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(220px, 100%), 1fr));
+      gap: clamp(10px, 3vw, 18px);
+      margin-bottom: clamp(36px, 6vw, 55px);
+    }
+
+    @media(max-width:480px) {
+      .og {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media(max-width:360px) {
+      .og {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .oc {
+      background: var(--glass);
+      border: 1px solid var(--gb);
+      border-radius: 15px;
+      padding: clamp(16px, 3vw, 24px);
+      backdrop-filter: blur(15px);
+      transition: all .3s;
+    }
+
+    .oc:hover {
+      transform: translateY(-4px);
+      border-color: var(--gold);
+      box-shadow: 0 10px 28px rgba(212, 168, 67, .14);
+    }
+
+    .on {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.1rem;
+      color: var(--gold);
+      opacity: .3;
+      line-height: 1;
+    }
+
+    .oc h6 {
+      color: var(--gold);
+      font-weight: 700;
+      font-size: .92rem;
+      margin: 4px 0;
+    }
+
+    .oc p {
+      font-size: .78rem;
+      color: rgba(245, 245, 240, .55);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* FOOTER */
+    footer {
+      background: rgba(5, 8, 24, .95);
+      border-top: 1px solid var(--gb);
+      padding: clamp(38px, 6vw, 58px) 0 clamp(18px, 4vw, 28px);
+      position: relative;
+      z-index: 1;
+    }
+
+    footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), var(--gold2), var(--gold), transparent);
+    }
+
+    .fg2 {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1.2fr;
+      gap: clamp(18px, 4vw, 38px);
+    }
+
+    @media(max-width:900px) {
+      .fg2 {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media(max-width:600px) {
+      .fg2 {
+        grid-template-columns: 1fr;
+        gap: 22px;
+      }
+
+      .fbot {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+
+    .fb2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.1rem;
+      color: var(--gold);
+      letter-spacing: 3px;
+    }
+
+    .fb2 span {
+      color: var(--white);
+    }
+
+    .fd {
+      color: rgba(245, 245, 240, .5);
+      font-size: .83rem;
+      margin: 12px 0;
+      line-height: 1.7;
+      max-width: 270px;
+    }
+
+    .fso {
+      display: flex;
+      gap: 9px;
+      flex-wrap: wrap;
+    }
+
+    .sb {
+      width: 40px;
+      height: 40px;
+      background: var(--glass);
+      border: 1px solid var(--gb);
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-size: .9rem;
+      transition: all .3s;
+    }
+
+    .sb:hover {
+      background: var(--gold);
+      color: var(--navy);
+      transform: translateY(-3px);
+      border-color: var(--gold);
+    }
+
+    .fc2 h4 {
+      font-weight: 700;
+      color: var(--gold);
+      font-size: .73rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 13px;
+    }
+
+    .fl {
+      color: rgba(245, 245, 240, .5);
+      font-size: .83rem;
+      transition: color .3s;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .fl:hover {
+      color: var(--gold);
+    }
+
+    .fdv {
+      border: none;
+      border-top: 1px solid var(--gb);
+      margin: clamp(18px, 4vw, 28px) 0;
+    }
+
+    .fbot {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 11px;
+      color: rgba(245, 245, 240, .3);
+      font-size: .76rem;
+    }
+
+    .fbot span {
+      color: var(--gold);
+    }
+
+    /* TOAST */
+    #toast {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 9999;
+      background: linear-gradient(135deg, var(--gold), var(--gold2));
+      color: var(--navy);
+      padding: 14px 24px;
+      border-radius: 11px;
+      font-weight: 700;
+      font-size: .86rem;
+      transform: translateY(80px);
+      opacity: 0;
+      transition: all .4s;
+      box-shadow: 0 10px 28px rgba(212, 168, 67, .4);
+    }
+
+    #toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    @media(max-width:480px) {
+      #toast {
+        bottom: 16px;
+        right: 16px;
+        left: 16px;
+        text-align: center;
+      }
+    }
+
+    /* SCROLL REVEAL  */
+    .rv {
+      opacity: 0;
+      transform: translateY(36px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+
+    .rv.v {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .rl2 {
+      opacity: 0;
+      transform: translateX(-42px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+
+    .rl2.v {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .rr2 {
+      opacity: 0;
+      transform: translateX(42px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+
+    .rr2.v {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    @media(max-width:480px) {
+
+      .rl2,
+      .rr2 {
+        transform: translateY(28px);
+      }
+
+      .rl2.v,
+      .rr2.v {
+        transform: translateY(0);
+      }
+    }
+
+    .d1 {
+      transition-delay: .1s;
+    }
+
+    .d2 {
+      transition-delay: .2s;
+    }
+
+    .d3 {
+      transition-delay: .3s;
+    }
+
+    .d4 {
+      transition-delay: .4s;
+    }
+
+    /* Touch targets */
+    @media(max-width:768px) {
+
+      .nb a,
+      .nl a {
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+      }
+
+      .sl-arrow {
+        min-width: 44px;
+        min-height: 44px;
+      }
+
+      .cr-btn {
+        min-width: 44px;
+        min-height: 44px;
+      }
+    }
+
+    /* new text animation */
+    .hero111 {
+      width: 100%;
+      /* min-height: 100vh; */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      /* gap: clamp(1rem, 4vw, 3rem); */
+      /* padding: clamp(2rem, 6vw, 6rem) clamp(1rem, 4vw, 3rem); */
+      position: relative;
+    }
+
+    /* animated mesh background behind page */
+    .hero111::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 20% 50%, rgba(255, 107, 53, 0.08) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 80% at 80% 30%, rgba(26, 26, 255, 0.07) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 50% at 50% 80%, rgba(0, 255, 204, 0.06) 0%, transparent 60%);
+      animation: meshShift 12s ease-in-out infinite alternate;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    @keyframes meshShift {
+      0% {
+        filter: hue-rotate(0deg);
+      }
+
+      100% {
+        filter: hue-rotate(60deg);
+      }
+    }
+
+    /* ── Main clip text ── */
+    .clip-text-wrap111 {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      line-height: 0.9;
+    }
+
+    .clip-text111 {
+      font-family: 'Bebas Neue', sans-serif;
+      /* font-size: clamp(5rem, 22vw, 22rem); */
+      font-size: clamp(2.2rem, 6vw, 5rem);
+      /* letter-spacing: -0.02em; */
+      background: linear-gradient(120deg,
+          #ff6b35,
+          #f7c59f,
+          #ff2d78,
+          #1a1aff,
+          #00ffcc,
+          #ff6b35);
+      background-size: 300% 300%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+      animation: flowGrad 6s ease infinite;
+      display: block;
+      user-select: none;
+    }
+
+    @keyframes flowGrad {
+      0% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    /*  SECTION 4 — RGB glitch text*/
+    .section-glitch {
+      width: 100%;
+      /* min-height: 100vh; */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      /* gap: clamp(0.5rem, 2vw, 2rem); */
+      /* padding: clamp(2rem, 6vw, 6rem) clamp(1rem, 4vw, 3rem); */
+      /* background: #020202; */
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* scanlines */
+    .section-glitch::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(0deg,
+          transparent,
+          transparent 2px,
+          rgba(255, 255, 255, 0.02) 2px,
+          rgba(255, 255, 255, 0.02) 4px);
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .glitch-label {
+      /* font-size: clamp(0.6rem, 1.5vw, 0.9rem); */
+      font-size: clamp(2.2rem, 6vw, 5rem);
+      /* letter-spacing: 0.5em; */
+      text-transform: uppercase;
+      color: rgba(0, 255, 150, 0.4);
+      position: relative;
+      z-index: 1;
+    }
+
+    .glitch-wrap {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
+
+    .clip-glitch {
+      font-family: 'Bebas Neue', sans-serif;
+      /* font-size: clamp(4rem, 17vw, 17rem); */
+      font-size: clamp(2.2rem, 6vw, 5rem);
+      /* letter-spacing: -0.02em; */
+      background: linear-gradient(135deg, #00ff96, #00cfff, #ffffff, #00ff96);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+      animation: glitchGrad 3s ease infinite;
+      position: relative;
+      display: block;
+      line-height: 0.9;
+    }
+
+    @keyframes glitchGrad {
+
+      0%,
+      100% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+    }
+
+    /* RGB chromatic aberration via pseudo elements */
+    .glitch-wrap::before,
+    .glitch-wrap::after {
+      content: attr(data-text);
+      font-family: 'Bebas Neue', sans-serif;
+      /* font-size: clamp(4rem, 17vw, 17rem); */
+      font-size: clamp(2.2rem, 6vw, 5rem);
+      /* letter-spacing: -0.02em; */
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      line-height: 0.9;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+    }
+
+    .glitch-wrap::before {
+      -webkit-text-stroke: 2px rgba(255, 0, 100, 0.6);
+      animation: glitchShiftA 3s step-end infinite;
+      clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+    }
+
+    .glitch-wrap::after {
+      -webkit-text-stroke: 2px rgba(0, 200, 255, 0.6);
+      animation: glitchShiftB 3s step-end infinite;
+      clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
+    }
+
+    @keyframes glitchShiftA {
+
+      0%,
+      90%,
+      100% {
+        transform: translate(0, 0);
+      }
+
+      92% {
+        transform: translate(-4px, -2px);
+      }
+
+      94% {
+        transform: translate(4px, 2px);
+      }
+
+      96% {
+        transform: translate(-3px, 1px);
+      }
+    }
+
+    @keyframes glitchShiftB {
+
+      0%,
+      90%,
+      100% {
+        transform: translate(0, 0);
+      }
+
+      92% {
+        transform: translate(4px, 2px);
+      }
+
+      94% {
+        transform: translate(-4px, -2px);
+      }
+
+      96% {
+        transform: translate(3px, -1px);
+      }
+    }
+    /* before footer animation */
+     /* ── Before Footer: Bouncing Circles Animation ── */
+    #circles-section {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+        background: rgba(26, 37, 96, .15);
+    }
+
+    .circles-container {
+      position: relative;
+      width: 100%;
+      height: clamp(200px, 50vw, 380px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .circle-item {
+      position: absolute;
+      background: transparent;
+      width: calc(var(--i) * clamp(2vmin, 2.5vmin, 3vmin));
+      aspect-ratio: 1;
+      border-radius: 50%;
+      border: 2px solid rgb(0, 255, 13);
+      transform-style: preserve-3d;
+      transform: rotateX(70deg) translateZ(clamp(20px, 4vw, 50px));
+      animation: circleAnimate 3s ease-in-out calc(var(--i) * 0.08s) infinite;
+      box-shadow: 0 0 15px rgb(124, 124, 124),
+                  inset 0 0 15px rgb(124, 124, 124);
+    }
+
+    @keyframes circleAnimate {
+      0%, 100% {
+        transform: rotateX(70deg) translateZ(clamp(20px, 4vw, 50px)) translateY(0);
+        filter: hue-rotate(0deg);
+      }
+      50% {
+        transform: rotateX(70deg) translateZ(clamp(20px, 4vw, 50px)) translateY(clamp(-30vmin, -50vmin, -50vmin));
+        filter: hue-rotate(360deg);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .circle-item {
+        border-width: 1.5px;
+        width: calc(var(--i) * 2vmin);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- LOADER -->
+  <div id="loader">
+    <div class="ll">A1 <span style="color:#f5f5f0">UNIFORMS</span></div>
+    <div class="lbw">
+      <div class="lb"></div>
+    </div>
+    <p class="lt">Loading Excellence…</p>
+  </div>
+
+  <!-- CURSOR -->
+  <div class="cur" id="cur"></div>
+  <div class="curt" id="curt"></div>
+
+  <!-- PARTICLES -->
+  <canvas id="pc"></canvas>
+
+  <!-- TOAST -->
+  <div id="toast">✓ Message Sent Successfully!</div>
+
+  <!-- PAGE TRANSITION -->
+  <div id="po"
+    style="position:fixed;inset:0;z-index:999999;background:var(--navy);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .4s;">
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:3rem;color:var(--gold);letter-spacing:4px;">A1 UNIFORMS
+    </div>
+  </div>
+
+  <!-- NAVBAR -->
+  <nav class="nb" id="nb">
+    <a class="nbrand" href="#hero">A1 <span>UNIFORMS</span></a>
+    <ul class="nl">
+      <li><a href="#hero">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#products">Products</a></li>
+      <li><a href="#why">Why Us</a></li>
+      <li><a href="#feedback">Feedback</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#contact" class="ncta"><i class="fas fa-star" style="margin-right:5px;"></i>Get Quote</a></li>
+    </ul>
+    <button class="hb" id="hb" aria-label="Menu"><span></span><span></span><span></span></button>
+  </nav>
+
+  <!-- MOBILE NAV -->
+  <div class="mnav" id="mn">
+    <a href="#hero" class="ml">Home</a>
+    <a href="#about" class="ml">About</a>
+    <a href="#products" class="ml">Products</a>
+    <a href="#why" class="ml">Why Us</a>
+    <a href="#feedback" class="ml">Feedback</a>
+    <a href="#contact" class="ml">Contact</a>
+    <a href="#contact" class="ml" style="color:var(--gold);font-size:1.6rem;">Get Quote ✦</a>
+  </div>
+
+  <!-- WHATSAPP BUTTON -->
+  <a href="https://web.whatsapp.com" target="_blank" rel="noopener noreferrer" id="waBtn"
+    style="position:fixed;bottom:28px;left:28px;z-index:9998;width:54px;height:54px;background:linear-gradient(135deg,#25d366,#128c7e);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.5rem;box-shadow:0 6px 24px rgba(37,211,102,.45);transition:transform .3s,box-shadow .3s;"
+    onmouseover="this.style.transform='scale(1.12)';this.style.boxShadow='0 10px 35px rgba(37,211,102,.6)';"
+    onmouseout="this.style.transform='scale(1)';this.style.boxShadow='0 6px 24px rgba(37,211,102,.45)';"
+    aria-label="Chat on WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <!-- HERO SLIDER -->
+  <!-- <section id="hero">
+    <div class="sl-track" id="slTrack"></div>
+    <button class="sl-arrow sl-prev" id="slPrev" aria-label="Previous slide"><i
+        class="fas fa-chevron-left"></i></button>
+    <button class="sl-arrow sl-next" id="slNext" aria-label="Next slide"><i class="fas fa-chevron-right"></i></button>
+    <div class="sl-bar">
+      <div class="sl-thumbs" id="slThumbs"></div>
+      <div class="sl-dots" id="slDots"></div>
+      <div class="sl-counter"><span class="cn" id="slCurNum">01</span> / <span id="slTotNum">06</span></div>
+    </div>
+    <div class="sl-progress">
+      <div id="slProg"></div>
+    </div>
+    <div class="hstats sl-stats">
+      <div class="si"><span class="sn" data-target="500">0</span><span class="sl">School Partners</span></div>
+      <div class="si"><span class="sn" data-target="9">0</span><span class="sl">Years of Excellence</span></div>
+      <div class="si"><span class="sn" data-target="50000">0</span><span class="sl">Happy Students</span></div>
+      <div class="si"><span class="sn" data-target="10">0</span><span class="sl">Product Categories</span></div>
+    </div>
+    <div class="scrl" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">
+      <span>Scroll</span>
+      <div class="scrl-l"></div>
+    </div>
+  </section> -->
+  <section id="hero">
+    <div class="sl-track" id="slTrack"></div>
+    <button class="sl-arrow sl-prev" id="slPrev" aria-label="Previous slide"><i
+        class="fas fa-chevron-left"></i></button>
+    <button class="sl-arrow sl-next" id="slNext" aria-label="Next slide"><i class="fas fa-chevron-right"></i></button>
+    <div class="sl-bar">
+      <div class="sl-thumbs" id="slThumbs"></div>
+      <div class="sl-dots" id="slDots"></div>
+      <div class="sl-counter"><span class="cn" id="slCurNum">01</span> / <span id="slTotNum">06</span></div>
+    </div>
+    <div class="sl-progress" id="slProg"></div>
+    <!-- STATS inside slider -->
+    <div class="hstats sl-stats">
+      <div class="si"><span class="sn" data-target="500">0</span><span class="sl">School Partners</span></div>
+      <div class="si"><span class="sn" data-target="9">0</span><span class="sl">Years of Excellence</span></div>
+      <div class="si"><span class="sn" data-target="50000">0</span><span class="sl">Happy Students</span></div>
+      <div class="si"><span class="sn" data-target="10">0</span><span class="sl">Product Categories</span></div>
+    </div>
+    <div class="scrl" onclick="window.scrollTo({top: window.innerHeight, behavior:'smooth'})">
+      <span>Scroll</span>
+      <div class="scrl-l"></div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="mq">
+    <div class="mqt">
+      <span><i class="fas fa-star"></i>Premium Quality</span>
+      <span><i class="fas fa-tshirt"></i>School Uniforms</span>
+      <span><i class="fas fa-medal"></i>Trusted Since 2016</span>
+      <span><i class="fas fa-check-circle"></i>Best Fit</span>
+      <span><i class="fas fa-palette"></i>Custom Designs</span>
+      <span><i class="fas fa-leaf"></i>Quality Textiles</span>
+      <span><i class="fas fa-users"></i>500+ Schools</span>
+      <span><i class="fas fa-star"></i>Premium Quality</span>
+      <span><i class="fas fa-tshirt"></i>School Uniforms</span>
+      <span><i class="fas fa-medal"></i>Trusted Since 2016</span>
+      <span><i class="fas fa-check-circle"></i>Best Fit</span>
+      <span><i class="fas fa-palette"></i>Custom Designs</span>
+      <span><i class="fas fa-leaf"></i>Quality Textiles</span>
+      <span><i class="fas fa-users"></i>500+ Schools</span>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="con">
+      <div class="ag">
+        <div class="aib rl2">
+          <div class="asw">
+            <img src="./Screenshot__21_-removebg-preview.png" alt="A1 Uniforms Student"
+              style="filter: drop-shadow(0 0 20px rgba(212,168,67,0.8)) drop-shadow(0 0 45px rgba(212,168,67,0.5)) drop-shadow(0 0 80px rgba(212,168,67,0.3));" />
+          </div>
+        </div>
+        <div class="rr2">
+          <div class="slbl">Who We Are</div>
+          <h2 class="stit">CRAFTING <span class="g">EXCELLENCE</span><br>SINCE 2016</h2>
+          <div class="sdiv"></div>
+          <p class="ap">A-1 Uniforms was founded with a single mission — to dress every student in comfort, quality, and
+            pride. From our very first stitch, we've been dedicated to understanding each client's unique vision and
+            delivering uniforms that exceed expectations.</p>
+          <div class="acg">
+            <div class="ac rv d1">
+              <div class="ai"><i class="fas fa-cut"></i></div>
+              <h6>Custom Tailoring</h6>
+              <p>Each uniform made to exact measurements for a perfect, comfortable fit.</p>
+            </div>
+            <div class="ac rv d2">
+              <div class="ai"><i class="fas fa-gem"></i></div>
+              <h6>Premium Fabric</h6>
+              <p>Only the finest quality textiles — durable, breathable, and long-lasting.</p>
+            </div>
+            <div class="ac rv d3">
+              <div class="ai"><i class="fas fa-lightbulb"></i></div>
+              <h6>Innovative Design</h6>
+              <p>Fresh, creative designs tailored uniquely for every school's identity.</p>
+            </div>
+            <div class="ac rv d4">
+              <div class="ai"><i class="fas fa-handshake"></i></div>
+              <h6>Client-First</h6>
+              <p>Every client treated as a unique partner. Your vision, our craftsmanship.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section id="products">
+    <div class="con">
+      <div class="tc rv" style="margin-bottom:clamp(28px,5vw,48px);">
+        <div class="slbl">Our Collection</div>
+        <!-- <h2 class="stit">SCHOOL <span class="g">UNIFORMS</span></h2> -->
+        <div class="section-glitch">
+          <div class="glitch-wrap" data-text="SCHOOL UNIFORM">
+            <span class="clip-glitch">SCHOOL UNIFORM</span>
+          </div>
+        </div>
+        <div class="sdiv c"></div>
+        <p style="color:rgba(245,245,240,.6);max-width:480px;margin:0 auto;font-size:.88rem;">Hover over each card to
+          discover more about our premium product range</p>
+      </div>
+      <div class="pg">
+        <a href="category.html?cat=shirts" class="fc rv d1">
+          <div class="fci">
+            <div class="ff"><i class="fas fa-tshirt fci2"></i>
+              <div class="fct">Shirts</div>
+              <div class="fctg">Boys &amp; Girls</div>
+              <div class="fcv">View →</div>
+            </div>
+            <div class="fb"><i class="fas fa-tshirt fbi"></i>
+              <div class="fbt">Shirts</div>
+              <p class="fbd">Crisp, breathable school shirts for boys and girls. Custom embroidery available.</p>
+              <div class="fbc">Shop Now →</div>
+            </div>
+          </div>
+        </a>
+        <a href="category.html?cat=skirts" class="fc rv d2">
+          <div class="fci">
+            <div class="ff"><i class="fas fa-vest fci2"></i>
+              <div class="fct">Skirts</div>
+              <div class="fctg">Girls Uniform</div>
+              <div class="fcv">View →</div>
+            </div>
+            <div class="fb"><i class="fas fa-vest fbi"></i>
+              <div class="fbt">Skirts</div>
+              <p class="fbd">Elegant pleated and A-line skirts in school-approved colors.</p>
+              <div class="fbc">Shop Now →</div>
+            </div>
+          </div>
+        </a>
+        <a href="category.html?cat=frocks" class="fc rv d3">
+          <div class="fci">
+            <div class="ff"><i class="fas fa-child fci2"></i>
+              <div class="fct">Frocks</div>
+              <div class="fctg">Girls Uniform</div>
+              <div class="fcv">View →</div>
+            </div>
+            <div class="fb"><i class="fas fa-child fbi"></i>
+              <div class="fbt">Frocks</div>
+              <p class="fbd">Beautifully stitched frocks for young girls, comfortable and school-appropriate.</p>
+              <div class="fbc">Shop Now →</div>
+            </div>
+          </div>
+        </a>
+        <a href="category.html?cat=pt-tshirts" class="fc rv d4">
+          <div class="fci">
+            <div class="ff"><i class="fas fa-running fci2"></i>
+              <div class="fct">P.T. T-Shirts</div>
+              <div class="fctg">Sports Wear</div>
+              <div class="fcv">View →</div>
+            </div>
+            <div class="fb"><i class="fas fa-running fbi"></i>
+              <div class="fbt">P.T. T-Shirts</div>
+              <p class="fbd">Moisture-wicking sports tees for active students. Custom school logos.</p>
+              <div class="fbc">Shop Now →</div>
+            </div>
+          </div>
+        </a>
+        <a href="category.html?cat=pt-shorts" class="fc rv d1">
+          <div class="fci">
+            <div class="ff"><i class="fas fa-socks fci2"></i>
+              <div class="fct">P.T. Shorts</div>
+              <div class="fctg">Sports Wear</div>
+              <div class="fcv">View →</div>
+            </div>
+            <div class="fb"><i class="fas fa-socks fbi"></i>
+              <div class="fbt">P.T. Shorts</div>
+              <p class="fbd">Lightweight flexible shorts for P.E. Elastic waistband for all-day comfort.</p>
+              <div class="fbc">Shop Now →</div>
+            </div>
+          </div>
+        </a>
+        <a href="category.html?cat=pt-trackpants" class="fc rv d2">
+          <div class="fci">
+            <div class="ff"><i class="fas fa-stream fci2"></i>
+              <div class="fct">Track Pants</div>
+              <div class="fctg">Sports Wear</div>
+              <div class="fcv">View →</div>
+            </div>
+            <div class="fb"><i class="fas fa-stream fbi"></i>
+              <div class="fbt">Track Pants</div>
+              <p class="fbd">Full-length track pants in premium sportswear fabric. Durable stitching.</p>
+              <div class="fbc">Shop Now →</div>
+            </div>
+          </div>
+        </a>
+        <a href="category.html?cat=belts" class="fc rv d3">
+          <div class="fci">
+            <div class="ff"><i class="fas fa-minus fci2"></i>
+              <div class="fct">Belts</div>
+              <div class="fctg">Accessories</div>
+              <div class="fcv">View →</div>
+            </div>
+            <div class="fb"><i class="fas fa-minus fbi"></i>
+              <div class="fbt">Belts</div>
+              <p class="fbd">Smart school belts in leather and fabric — polished buckles, all school colors.</p>
+              <div class="fbc">Shop Now →</div>
+            </div>
+          </div>
+        </a>
+        <a href="category.html?cat=ties" class="fc rv d4">
+          <div class="fci">
+            <div class="ff"><i class="fas fa-crown fci2"></i>
+              <div class="fct">Ties</div>
+              <div class="fctg">Accessories</div>
+              <div class="fcv">View →</div>
+            </div>
+            <div class="fb"><i class="fas fa-crown fbi"></i>
+              <div class="fbt">Ties</div>
+              <p class="fbd">Classic school ties with house colors and stripes. Pre-tied options available.</p>
+              <div class="fbc">Shop Now →</div>
+            </div>
+          </div>
+        </a>
+        <a href="category.html?cat=logos" class="fc rv d1">
+          <div class="fci">
+            <div class="ff"><i class="fas fa-certificate fci2"></i>
+              <div class="fct">Logos</div>
+              <div class="fctg">Embroidery</div>
+              <div class="fcv">View →</div>
+            </div>
+            <div class="fb"><i class="fas fa-certificate fbi"></i>
+              <div class="fbt">Logos</div>
+              <p class="fbd">High-quality embroidered and printed school logos. Precision guaranteed.</p>
+              <div class="fbc">Shop Now →</div>
+            </div>
+          </div>
+        </a>
+        <a href="category.html?cat=socks" class="fc rv d2">
+          <div class="fci">
+            <div class="ff"><i class="fas fa-shoe-prints fci2"></i>
+              <div class="fct">Socks</div>
+              <div class="fctg">Accessories</div>
+              <div class="fcv">View →</div>
+            </div>
+            <div class="fb"><i class="fas fa-shoe-prints fbi"></i>
+              <div class="fbt">Socks</div>
+              <p class="fbd">Comfortable cotton school socks in various lengths and colors.</p>
+              <div class="fbc">Shop Now →</div>
+            </div>
+          </div>
+        </a>
+      </div>
+      <!-- Bulk Order Card -->
+      <div class="frow">
+        <div class="c3w" id="c3w">
+          <div class="c3" id="c3">
+            <div class="c3g" id="c3g"></div>
+            <div class="c3c">
+              <div class="slbl" style="margin-bottom:10px;">Special Offer</div>
+              <h3
+                style="font-family:'Bebas Neue',sans-serif;font-size:clamp(1.7rem,4vw,2.5rem);letter-spacing:2px;color:var(--gold);">
+                BULK ORDER DISCOUNTS</h3>
+              <p
+                style="color:rgba(245,245,240,.65);max-width:480px;margin:12px auto;line-height:1.7;font-size:clamp(.84rem,2vw,.94rem);">
+                Order uniforms for your entire school and get exclusive pricing. We handle everything from measurement
+                to delivery!</p>
+              <div class="btiers">
+                <div class="bt">
+                  <div class="bn">50+</div>
+                  <div class="bl">Units — 10% off</div>
+                </div>
+                <div class="bt">
+                  <div class="bn">200+</div>
+                  <div class="bl">Units — 20% off</div>
+                </div>
+                <div class="bt">
+                  <div class="bn">500+</div>
+                  <div class="bl">Units — 30% off</div>
+                </div>
+              </div>
+              <a href="#contact" class="bg" style="margin-top:20px;display:inline-flex;border:none;"><i
+                  class="fas fa-envelope"></i> Request Bulk Quote</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3D CAROUSEL -->
+  <section id="carousel-section">
+    <div class="con">
+      <div class="tc rv" style="margin-bottom:0;">
+        <div class="slbl">360° Showcase</div>
+        <!-- <h2 class="stit">OUR <span class="g">UNIFORM</span> GALLERY</h2> -->
+        <div class="hero111">
+          <div class="clip-text-wrap111">
+            <span class="clip-text111">OUR UNIFORM GALLERY</span>
+            <!-- <span class="clip-sub">BACKGROUND · CLIP · TEXT</span> -->
+          </div>
+        </div>
+        <div class="sdiv c"></div>
+        <p style="color:rgba(245,245,240,.6);max-width:480px;margin:0 auto;font-size:.88rem;">Explore our complete
+          uniform collection in an immersive 3D showcase — drag, swipe or use arrows</p>
+      </div>
+      <div class="cr-scene rv">
+        <div class="cr-ring" id="crRing"></div>
+        <div class="cr-floor"></div>
+      </div>
+      <div class="cr-controls rv">
+        <button class="cr-btn" id="crPrev" aria-label="Previous">&#8592;</button>
+        <div class="cr-dots" id="crDots"></div>
+        <button class="cr-btn" id="crNext" aria-label="Next">&#8594;</button>
+      </div>
+      <div class="cr-counter rv"><span id="crCur">01</span> / <span id="crTot">08</span></div>
+      <div class="cr-hint rv">← drag or swipe to rotate →</div>
+    </div>
+  </section>
+
+  <!-- WHY US -->
+  <section id="why">
+    <div class="con">
+      <div class="wg">
+        <div class="rl2">
+          <div class="slbl">Why Choose Us</div>
+          <h2 class="stit">THE A1 <span class="g">ADVANTAGE</span></h2>
+          <div class="sdiv"></div>
+          <div class="wi">
+            <div class="witem">
+              <div class="wn">01</div>
+              <div class="wt">
+                <h5><i class="fas fa-medal" style="margin-right:7px;"></i>Unmatched Quality</h5>
+                <p>Every garment inspected before delivery. Only certified fabrics — durable, comfortable,
+                  school-approved.</p>
+              </div>
+            </div>
+            <div class="witem">
+              <div class="wn">02</div>
+              <div class="wt">
+                <h5><i class="fas fa-dollar-sign" style="margin-right:7px;"></i>Affordable Pricing</h5>
+                <p>Premium uniforms without breaking the bank. Transparent, honest pricing with no hidden costs.</p>
+              </div>
+            </div>
+            <div class="witem">
+              <div class="wn">03</div>
+              <div class="wt">
+                <h5><i class="fas fa-truck" style="margin-right:7px;"></i>On-Time Delivery</h5>
+                <p>Efficient production ensures bulk orders delivered on time, before the school term starts.</p>
+              </div>
+            </div>
+            <div class="witem">
+              <div class="wn">04</div>
+              <div class="wt">
+                <h5><i class="fas fa-paint-brush" style="margin-right:7px;"></i>Custom Branding</h5>
+                <p>Embroidered logos, custom color combinations — we bring your school's identity to life.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="rr2" style="text-align:center;">
+          <div class="rw">
+            <canvas id="rc" width="280" height="280"></canvas>
+            <div class="rc">
+              <div class="rb">98%</div>
+              <div class="rs">Satisfaction</div>
+            </div>
+          </div>
+          <div class="rl">
+            <div class="rli">
+              <div class="rld" style="background:#d4a843;"></div>Quality
+            </div>
+            <div class="rli">
+              <div class="rld" style="background:#1a2560;"></div>Delivery
+            </div>
+            <div class="rli">
+              <div class="rld" style="background:#f0c96e;"></div>Pricing
+            </div>
+            <div class="rli">
+              <div class="rld" style="background:#2e3f8a;"></div>Design
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEEDBACK -->
+  <section id="feedback">
+    <div class="con">
+      <div class="tc rv" style="margin-bottom:clamp(28px,5vw,48px);">
+        <div class="slbl">Your Voice Matters</div>
+        <h2 class="stit">SHARE YOUR <span class="g">FEEDBACK</span></h2>
+        <div class="sdiv c"></div>
+        <p style="color:rgba(245,245,240,.6);font-size:.88rem;">We value every client's experience and continuously
+          improve based on your feedback.</p>
+      </div>
+      <div class="fbf rv">
+        <form id="fbForm">
+          <div class="fr2">
+            <div class="fg"><label class="flbl">Full Name</label><input type="text" class="fctl"
+                placeholder="Your full name" required /></div>
+            <div class="fg"><label class="flbl">Email Address</label><input type="email" class="fctl"
+                placeholder="your@email.com" required /></div>
+          </div>
+          <div class="fg"><label class="flbl">School / Institution</label><input type="text" class="fctl"
+              placeholder="School name" /></div>
+          <div class="fr2">
+            <div class="fg">
+              <label class="flbl">Product Category</label>
+              <select class="fcsl fctl">
+                <option value="">Select product…</option>
+                <option>Shirts</option>
+                <option>Skirts</option>
+                <option>Frocks</option>
+                <option>P.T. T-Shirts</option>
+                <option>P.T. Shorts</option>
+                <option>Track Pants</option>
+                <option>Belts</option>
+                <option>Ties</option>
+                <option>Logos</option>
+                <option>Socks</option>
+              </select>
+            </div>
+            <div class="fg">
+              <label class="flbl">Overall Rating</label>
+              <div class="sr">
+                <input type="radio" id="s5" name="rating" value="5" /><label for="s5"><i
+                    class="fas fa-star"></i></label>
+                <input type="radio" id="s4" name="rating" value="4" /><label for="s4"><i
+                    class="fas fa-star"></i></label>
+                <input type="radio" id="s3" name="rating" value="3" /><label for="s3"><i
+                    class="fas fa-star"></i></label>
+                <input type="radio" id="s2" name="rating" value="2" /><label for="s2"><i
+                    class="fas fa-star"></i></label>
+                <input type="radio" id="s1" name="rating" value="1" /><label for="s1"><i
+                    class="fas fa-star"></i></label>
+              </div>
+            </div>
+          </div>
+          <div class="fg"><label class="flbl">Your Feedback</label><textarea class="fctl" rows="4"
+              placeholder="Tell us about your experience with A1 Uniforms…" required></textarea></div>
+          <div style="text-align:center;margin-top:6px;"><button type="submit" class="bg"
+              style="border:none;cursor:pointer;"><i class="fas fa-paper-plane"></i> Submit Feedback</button></div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="con">
+      <div class="tc rv" style="margin-bottom:clamp(28px,5vw,48px);">
+        <div class="slbl">Get In Touch</div>
+        <!-- <h2 class="stit">CONTACT <span class="g">US</span></h2> -->
+        <div class="hero111">
+          <div class="clip-text-wrap111">
+            <span class="clip-text111">Contact Us</span>
+
+          </div>
+          <div class="sdiv c"></div>
+        </div>
+        <div class="ccr">
+          <div class="cc rv d1">
+            <div class="cci"><i class="fas fa-map-marker-alt"></i></div>
+            <h6>Head Office</h6>
+            <p>Shop #12, Uniform Market,<br>Main Boulevard, Karachi,<br>Sindh, Pakistan</p>
+          </div>
+          <div class="cc rv d2" style="text-align:center;">
+            <div class="cci" style="margin:0 auto 12px;"><i class="fas fa-phone-alt"></i></div>
+            <h6>Call Us</h6>
+            <p>+92 300 000 0000<br>+92 021 000 0000</p>
+          </div>
+          <div class="cc rv d3" style="text-align:center;">
+            <div class="cci" style="margin:0 auto 12px;"><i class="fas fa-envelope"></i></div>
+            <h6>Email Us</h6>
+            <p>
+              <a href="mailto:ahsan9raz@gmail.com" style="color: white;">For Email </a><br>
+
+              <a href="mailto:ahsan9raz@gmail.com" style="color: white;">Another Email </a>
+            </p>
+          </div>
+        </div>
+        <!-- Map -->
+        <div class="mb rv">
+          <div class="mp">
+            <i class="fas fa-map-marker-alt"></i>
+            <p>A1 Uniforms HQ · Karachi, Pakistan</p>
+            <a href="https://www.google.com/maps/search/Uniform+Market+Karachi+Pakistan" target="_blank">View on Google
+              Maps →</a>
+          </div>
+        </div>
+        <!-- Outlets -->
+        <div class="rv">
+          <p class="oh"><i class="fas fa-store" style="margin-right:9px;"></i>Our City Outlets</p>
+          <div class="og">
+            <div class="oc">
+              <div class="on">01</div>
+              <h6>Saddar Branch</h6>
+              <p>Shop 5, Saddar Market<br>Karachi · 021-XXX-XXXX</p>
+            </div>
+            <div class="oc">
+              <div class="on">02</div>
+              <h6>Gulshan Branch</h6>
+              <p>Block 7, Gulshan-e-Iqbal<br>Karachi · 021-XXX-XXXX</p>
+            </div>
+            <div class="oc">
+              <div class="on">03</div>
+              <h6>North Nazimabad</h6>
+              <p>Block 10, North Nazimabad<br>Karachi · 021-XXX-XXXX</p>
+            </div>
+            <div class="oc">
+              <div class="on">04</div>
+              <h6>DHA Branch</h6>
+              <p>Phase 5, DHA<br>Karachi · 021-XXX-XXXX</p>
+            </div>
+          </div>
+        </div>
+        <!-- Contact Form -->
+        <div style="display:flex;justify-content:center;">
+          <div class="fbf rv" style="width:100%;">
+            <h4
+              style="font-family:'Bebas Neue';font-size:clamp(1.4rem,3vw,1.8rem);letter-spacing:2px;color:var(--gold);margin-bottom:20px;">
+              <i class="fas fa-envelope-open-text" style="margin-right:7px;"></i>Send Us a Message
+            </h4>
+            <form id="ctForm">
+              <div class="fr2">
+                <div class="fg"><label style="text-align: left;" class="flbl">Full Name</label><input type="text" class="fctl"
+                    placeholder="Your name" required /></div>
+                <div class="fg"><label style="text-align: left;" class="flbl">Phone Number</label><input type="tel" class="fctl"
+                    placeholder="+92 300 000 0000" /></div>
+              </div>
+              <div class="fg"><label style="text-align: left;" class="flbl">Subject</label><input type="text" class="fctl"
+                  placeholder="Uniform inquiry, bulk order…" required /></div>
+              <div class="fg"><label style="text-align: left;" class="flbl">Message</label><textarea class="fctl" rows="4"
+                  placeholder="Tell us how we can help you…" required></textarea></div>
+              <button type="submit" class="bg" style="border:none;cursor:pointer;"><i class="fas fa-paper-plane"></i>
+                Send
+                Message</button>
+            </form>
+          </div>
+        </div>
+      </div>
+  </section>
+    <!-- CIRCLES ANIMATION (before footer) -->
+  <section id="circles-section" style="padding-bottom: 0px; margin-bottom: 0px;">
+    <div class="circles-container">
+      <div class="circle-item" style="--i:1;"></div>
+      <div class="circle-item" style="--i:2;"></div>
+      <div class="circle-item" style="--i:3;"></div>
+      <div class="circle-item" style="--i:4;"></div>
+      <div class="circle-item" style="--i:5;"></div>
+      <div class="circle-item" style="--i:6;"></div>
+      <div class="circle-item" style="--i:7;"></div>
+      <div class="circle-item" style="--i:8;"></div>
+      <div class="circle-item" style="--i:9;"></div>
+      <div class="circle-item" style="--i:10;"></div>
+      <div class="circle-item" style="--i:11;"></div>
+      <div class="circle-item" style="--i:12;"></div>
+      <div class="circle-item" style="--i:13;"></div>
+      <div class="circle-item" style="--i:14;"></div>
+      <div class="circle-item" style="--i:15;"></div>
+      <div class="circle-item" style="--i:16;"></div>
+      <div class="circle-item" style="--i:17;"></div>
+      <div class="circle-item" style="--i:18;"></div>
+      <div class="circle-item" style="--i:19;"></div>
+      <div class="circle-item" style="--i:20;"></div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="con">
+      <div class="fg2">
+        <div>
+          <div class="fb2">A1 <span>UNIFORMS</span></div>
+          <p class="fd">Crafting excellence in school uniforms since 2016. Quality, comfort, and pride — stitched into
+            every garment.</p>
+          <div class="fso">
+            <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" class="sb"><i
+                class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" class="sb"><i
+                class="fab fa-instagram"></i></a>
+            <a href="https://web.whatsapp.com" target="_blank" rel="noopener noreferrer" class="sb"><i
+                class="fab fa-whatsapp"></i></a>
+            <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" class="sb"><i
+                class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+        <div class="fc2">
+          <h4>Navigation</h4>
+          <a href="#hero" class="fl">Home</a>
+          <a href="#about" class="fl">About Us</a>
+          <a href="#products" class="fl">Products</a>
+          <a href="#why" class="fl">Why Us</a>
+          <a href="#feedback" class="fl">Feedback</a>
+          <a href="#contact" class="fl">Contact</a>
+        </div>
+        <div class="fc2">
+          <h4>Products</h4>
+          <a href="category.html?cat=shirts" class="fl">Shirts &amp; Skirts</a>
+          <a href="category.html?cat=frocks" class="fl">Frocks</a>
+          <a href="category.html?cat=pt-tshirts" class="fl">P.T. Sportswear</a>
+          <a href="category.html?cat=belts" class="fl">Belts &amp; Ties</a>
+          <a href="category.html?cat=logos" class="fl">Logos &amp; Embroidery</a>
+          <a href="category.html?cat=socks" class="fl">Socks</a>
+        </div>
+        <div class="fc2">
+          <h4>Contact Info</h4>
+          <p style="color:rgba(245,245,240,.5);font-size:.83rem;line-height:1.9;margin:0;">
+            <i class="fas fa-map-marker-alt" style="color:var(--gold);margin-right:7px;"></i>Karachi, Sindh,
+            Pakistan<br>
+            <i class="fas fa-phone-alt" style="color:var(--gold);margin-right:7px;"></i>+92 300 000 0000<br>
+            <i class="fas fa-envelope" style="color:var(--gold);margin-right:7px;"></i>
+            <a href="mailto:ahsan9raz@gmail.com" style="color: rgb(192, 179, 179);">For Email </a><br>
+            <i class="fas fa-clock" style="color:var(--gold);margin-right:7px;"></i>Mon–Sat: 9am – 7pm
+          </p>
+        </div>
+      </div>
+      <hr class="fdv" />
+      <div class="fbot">
+        <div>© 2025 <span>A1 Uniforms</span>. All rights reserved. | Website by <span>eProject Team</span></div>
+        <div>love <span style="color:#e25;">♥</span> Pakistan</div>
+      </div>
+    </div>
+  </footer>
+  <script>
+
+    /*  HERO SLIDER*/
+    (function () {
+
+      /*   SLIDE DATA*/
+      const SLIDES = [
+        {
+          badge: '★ Est. 2016 · Premium Uniforms',
+          title1: 'DRESS TO', title2: 'IMPRESS',
+          desc: "Pakistan's most trusted school uniform manufacturer — crafting quality, comfort & pride for every child.",
+          btn1: { label: '<i class="fas fa-tshirt"></i> View Products', href: '#products', cls: 'bg' },
+          btn2: { label: '<i class="fas fa-phone-alt"></i> Get Quote', href: '#contact', cls: 'bo' },
+          decoNum: '01', decoLabel: 'Dress Uniforms',
+          draw: drawSlide_Shirts,
+        },
+        {
+          badge: '★ Girls Collection · Frocks & Skirts',
+          title1: 'ELEGANCE', title2: 'PERFECTED',
+          desc: 'Beautifully tailored frocks and skirts — lightweight, breathable, and designed for all-day comfort.',
+          btn1: { label: '<i class="fas fa-tshirt"></i> Shop Frocks', href: '#products', cls: 'bg' },
+          btn2: { label: '<i class="fas fa-palette"></i> Custom Color', href: '#contact', cls: 'bo' },
+          decoNum: '02', decoLabel: 'Frocks & Skirts',
+          draw: drawSlide_FrockSkirt,
+        },
+        {
+          badge: '★ P.T. Sports Collection',
+          title1: 'BUILT FOR', title2: 'CHAMPIONS',
+          desc: 'Moisture-wicking sports uniforms for P.T. & athletics — dry-fit fabric that keeps students cool and active.',
+          btn1: { label: '<i class="fas fa-running"></i> Sports Range', href: '#products', cls: 'bg' },
+          btn2: { label: '<i class="fas fa-phone-alt"></i> Bulk Orders', href: '#contact', cls: 'bo' },
+          decoNum: '03', decoLabel: 'P.T. Uniforms',
+          draw: drawSlide_Sports,
+        },
+        {
+          badge: '★ Accessories · Belts, Ties & More',
+          title1: 'COMPLETE', title2: 'THE LOOK',
+          desc: 'Premium school ties, leather belts, embroidered logos, and socks — every detail finished to perfection.',
+          btn1: { label: '<i class="fas fa-crown"></i> Accessories', href: '#products', cls: 'bg' },
+          btn2: { label: '<i class="fas fa-certificate"></i> Custom Logo', href: '#contact', cls: 'bo' },
+          decoNum: '04', decoLabel: 'Accessories',
+          draw: drawSlide_Accessories,
+        },
+        {
+          badge: '★ School Branding · Embroidery',
+          title1: 'YOUR CREST', title2: 'OUR CRAFT',
+          desc: 'Pixel-perfect school logos embroidered or heat-transferred onto any garment — 500+ schools trust A1.',
+          btn1: { label: '<i class="fas fa-medal"></i> View Logos', href: '#products', cls: 'bg' },
+          btn2: { label: '<i class="fas fa-handshake"></i> Partner With Us', href: '#contact', cls: 'bo' },
+          decoNum: '05', decoLabel: 'Embroidery',
+          draw: drawSlide_Logo,
+        },
+        {
+          badge: '★ Custom Bulk Orders · Schools & Institutions',
+          title1: 'QUALITY AT', title2: 'ANY SCALE',
+          desc: 'From 10 to 10,000 — we handle bulk orders with precision, consistency, and on-time delivery guaranteed.',
+          btn1: { label: '<i class="fas fa-tshirt"></i> Get Started', href: '#products', cls: 'bg' },
+          btn2: { label: '<i class="fas fa-phone-alt"></i> Call Now', href: '#contact', cls: 'bo' },
+          decoNum: '06', decoLabel: 'Bulk Orders',
+          draw: drawSlide_Bulk,
+        },
+      ];
+
+      /*  CANVAS HELPERS */
+      function makeBg(ctx, W, H, colors, accent) {
+        const g = ctx.createRadialGradient(W * .3, H * .3, 0, W * .5, H * .5, Math.max(W, H));
+        g.addColorStop(0, colors[1]); g.addColorStop(.55, colors[0]); g.addColorStop(1, colors[2] || colors[0]);
+        ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+        ctx.save(); ctx.strokeStyle = accent + '08'; ctx.lineWidth = 1;
+        for (let x = 0; x < W; x += 60) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke(); }
+        for (let y = 0; y < H; y += 60) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke(); }
+        ctx.restore();
+        [[W * .75, H * .25, 220, accent + '22'], [W * .85, H * .7, 160, accent + '10'], [W * .6, H * .5, 300, accent + '08']].forEach(([x, y, r, c]) => {
+          const og = ctx.createRadialGradient(x, y, 0, x, y, r); og.addColorStop(0, c); og.addColorStop(1, 'transparent');
+          ctx.fillStyle = og; ctx.fillRect(0, 0, W, H);
+        });
+      }
+
+      function rr(ctx, x, y, w, h, r) {
+        r = Math.min(r, w / 2, h / 2);
+        ctx.beginPath();
+        ctx.moveTo(x + r, y); ctx.lineTo(x + w - r, y); ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+        ctx.lineTo(x + w, y + h - r); ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+        ctx.lineTo(x + r, y + h); ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+        ctx.lineTo(x, y + r); ctx.quadraticCurveTo(x, y, x + r, y);
+        ctx.closePath();
+      }
+
+      function lighten(hex, amt) { let n = parseInt(hex.replace('#', ''), 16); return `rgb(${Math.min(255, ((n >> 16) & 0xff) + Math.round(amt * 120))},${Math.min(255, ((n >> 8) & 0xff) + Math.round(amt * 120))},${Math.min(255, (n & 0xff) + Math.round(amt * 120))})` }
+      function darken(hex, amt) { let n = parseInt(hex.replace('#', ''), 16); return `rgb(${Math.max(0, ((n >> 16) & 0xff) - Math.round(amt * 120))},${Math.max(0, ((n >> 8) & 0xff) - Math.round(amt * 120))},${Math.max(0, (n & 0xff) - Math.round(amt * 120))})` }
+
+      function drawFloatingBadge(ctx, x, y, label, color, s) {
+        const fs = 7 * s; ctx.font = `700 ${fs}px Arial`;
+        const tw = ctx.measureText(label).width, w = tw + 25 * s, h = 22 * s;
+        ctx.save(); ctx.shadowColor = color + '55'; ctx.shadowBlur = 14 * s;
+        rr(ctx, x - w / 2, y - h / 2, w, h, h / 2); ctx.fillStyle = color + '22'; ctx.fill();
+        ctx.strokeStyle = color + '66'; ctx.lineWidth = 1.2 * s; ctx.stroke();
+        ctx.fillStyle = color; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(label, x, y);
+        ctx.restore();
+      }
+
+      function drawGoldLines(ctx, W, H, color) {
+        ctx.save(); ctx.globalAlpha = .06; ctx.strokeStyle = color; ctx.lineWidth = 1;
+        for (let i = 0; i < 5; i++) { const y = H * .1 + i * H * .2; ctx.beginPath(); ctx.moveTo(W * .5, y); ctx.lineTo(W * .5 + 80, y + 30); ctx.stroke(); }
+        ctx.restore();
+      }
+
+      function drawUniformCard(ctx, cx, cy, W, H, s, c) {
+        ctx.save(); ctx.shadowColor = 'rgba(0,0,0,.7)'; ctx.shadowBlur = 50 * s; ctx.shadowOffsetY = 20 * s;
+        const bx = cx - 45 * s, by = cy - 80 * s, bw = 90 * s, bh = 130 * s;
+        const bg = ctx.createLinearGradient(bx, by, bx + bw, by + bh);
+        bg.addColorStop(0, lighten(c, .3)); bg.addColorStop(.4, c); bg.addColorStop(1, darken(c, .35));
+        rr(ctx, bx, by, bw, bh, 10 * s); ctx.fillStyle = bg; ctx.fill();
+        ctx.beginPath(); ctx.moveTo(bx, by + 8 * s); ctx.lineTo(bx - 38 * s, by + 22 * s); ctx.lineTo(bx - 36 * s, by + 72 * s); ctx.lineTo(bx, by + 65 * s); ctx.closePath();
+        const slg = ctx.createLinearGradient(bx - 38 * s, by, bx, by + 72 * s); slg.addColorStop(0, darken(c, .2)); slg.addColorStop(1, c);
+        ctx.fillStyle = slg; ctx.fill();
+        ctx.beginPath(); ctx.moveTo(bx + bw, by + 8 * s); ctx.lineTo(bx + bw + 38 * s, by + 22 * s); ctx.lineTo(bx + bw + 36 * s, by + 72 * s); ctx.lineTo(bx + bw, by + 65 * s); ctx.closePath();
+        const srg = ctx.createLinearGradient(bx + bw, by, bx + bw + 38 * s, by + 72 * s); srg.addColorStop(0, c); srg.addColorStop(1, darken(c, .2));
+        ctx.fillStyle = srg; ctx.fill();
+        ctx.restore();
+      }
+
+      /*  SLIDE DRAW FUNCTIONS*/
+      function drawSlide_Shirts(ctx, W, H) {
+        makeBg(ctx, W, H, ['#0a0f2e', '#0d1540', '#0f1a4a'], '#d4a843');
+        const s = Math.min(W, H) / 700;
+        // Main shirt
+        (function (cx, cy) {
+          ctx.save(); ctx.shadowColor = 'rgba(0,0,0,.8)'; ctx.shadowBlur = 60 * s; ctx.shadowOffsetY = 25 * s;
+          const bx = cx - 65 * s, by = cy - 95 * s, bw = 130 * s, bh = 170 * s;
+          const bg = ctx.createLinearGradient(bx, by, bx + bw, by + bh);
+          bg.addColorStop(0, '#243888'); bg.addColorStop(.4, '#1a2f70'); bg.addColorStop(1, '#0d1848');
+          rr(ctx, bx, by, bw, bh, 14 * s); ctx.fillStyle = bg; ctx.fill();
+          // Left sleeve
+          ctx.beginPath(); ctx.moveTo(bx, by + 10 * s); ctx.lineTo(bx - 52 * s, by + 28 * s); ctx.lineTo(bx - 50 * s, by + 95 * s); ctx.lineTo(bx, by + 82 * s); ctx.closePath();
+          const slg = ctx.createLinearGradient(bx - 52 * s, by, bx, by + 95 * s); slg.addColorStop(0, '#1a2560'); slg.addColorStop(1, '#0d1848');
+          ctx.fillStyle = slg; ctx.fill();
+          // Right sleeve
+          ctx.beginPath(); ctx.moveTo(bx + bw, by + 10 * s); ctx.lineTo(bx + bw + 52 * s, by + 28 * s); ctx.lineTo(bx + bw + 50 * s, by + 95 * s); ctx.lineTo(bx + bw, by + 82 * s); ctx.closePath();
+          const srg = ctx.createLinearGradient(bx + bw, by, bx + bw + 52 * s, by + 95 * s); srg.addColorStop(0, '#243888'); srg.addColorStop(1, '#1a2560');
+          ctx.fillStyle = srg; ctx.fill();
+          // Collar
+          ctx.beginPath(); ctx.moveTo(cx - 22 * s, by); ctx.lineTo(cx - 8 * s, by + 28 * s); ctx.lineTo(cx, by + 22 * s); ctx.lineTo(cx + 8 * s, by + 28 * s); ctx.lineTo(cx + 22 * s, by);
+          const cg = ctx.createLinearGradient(cx - 22 * s, by, cx + 22 * s, by + 28 * s); cg.addColorStop(0, '#f0c96e'); cg.addColorStop(1, '#d4a843');
+          ctx.strokeStyle = cg; ctx.lineWidth = 3 * s; ctx.stroke();
+          // Buttons
+          for (let i = 0; i < 5; i++) { ctx.beginPath(); ctx.arc(cx, by + 45 * s + i * 22 * s, 4 * s, 0, Math.PI * 2); ctx.fillStyle = 'rgba(212,168,67,.6)'; ctx.fill(); }
+          // Pocket
+          rr(ctx, bx + 20 * s, by + 55 * s, 30 * s, 28 * s, 5 * s); ctx.strokeStyle = 'rgba(212,168,67,.3)'; ctx.lineWidth = 1.5 * s; ctx.stroke();
+          const ig = ctx.createLinearGradient(bx, by, bx + bw, by + bh); ig.addColorStop(0, 'rgba(255,255,255,.04)'); ig.addColorStop(1, 'transparent');
+          rr(ctx, bx, by, bw, bh, 14 * s); ctx.fillStyle = ig; ctx.fill();
+          ctx.restore();
+        })(W * .72, H * .48);
+        // Background shirts
+        drawUniformCard(ctx, W * .58, H * .38, W, H, s * .55, '#162060');
+        drawUniformCard(ctx, W * .87, H * .55, W, H, s * .48, '#0f1848');
+        drawFloatingBadge(ctx, W * .73, H * .1, 'Premium School Shirts', '#d4a843', s);
+        drawFloatingBadge(ctx, W * .88, H * .82, 'Since 2016', '#f0c96e', s * .85);
+        drawGoldLines(ctx, W, H, '#d4a843');
+      }
+
+      function drawSlide_FrockSkirt(ctx, W, H) {
+        makeBg(ctx, W, H, ['#1a0a28', '#220d30', '#1a0a28'], '#e879b0');
+        const s = Math.min(W, H) / 700;
+        // Frock
+        (function (cx, cy) {
+          ctx.save(); ctx.shadowColor = 'rgba(0,0,0,.7)'; ctx.shadowBlur = 50 * s; ctx.shadowOffsetY = 22 * s;
+          // Bodice
+          const bx = cx - 42 * s, by = cy - 90 * s, bw = 84 * s, bh = 70 * s;
+          const bg = ctx.createLinearGradient(bx, by, bx + bw, by + bh);
+          bg.addColorStop(0, '#c060a0'); bg.addColorStop(1, '#902070');
+          rr(ctx, bx, by, bw, bh, 12 * s); ctx.fillStyle = bg; ctx.fill();
+          // Skirt
+          ctx.beginPath(); ctx.moveTo(bx - 10 * s, by + bh); ctx.lineTo(bx + bw + 10 * s, by + bh); ctx.lineTo(bx + bw + 50 * s, cy + 90 * s); ctx.lineTo(bx - 50 * s, cy + 90 * s); ctx.closePath();
+          const sg = ctx.createLinearGradient(bx, by + bh, bx, cy + 90 * s); sg.addColorStop(0, '#a04080'); sg.addColorStop(1, '#701050');
+          ctx.fillStyle = sg; ctx.fill();
+          // Collar bow
+          ctx.beginPath(); ctx.moveTo(cx, by + 12 * s); ctx.quadraticCurveTo(cx - 18 * s, by + 2 * s, cx - 14 * s, by + 22 * s); ctx.quadraticCurveTo(cx, by + 14 * s, cx + 14 * s, by + 22 * s); ctx.quadraticCurveTo(cx + 18 * s, by + 2 * s, cx, by + 12 * s);
+          ctx.fillStyle = '#f0c96e'; ctx.fill();
+          // Skirt pleats
+          for (let i = 0; i < 7; i++) { const px = bx - 40 * s + i * ((bw + 80 * s) / 6), py2 = cy + 90 * s; ctx.beginPath(); ctx.moveTo(bx - 10 * s + (i * (bw + 20 * s) / 6), by + bh); ctx.lineTo(px, py2); ctx.strokeStyle = 'rgba(255,255,255,.12)'; ctx.lineWidth = 1.5 * s; ctx.stroke(); }
+          ctx.restore();
+        })(W * .72, H * .46);
+        // Skirt accent
+        (function (cx, cy) {
+          ctx.save();
+          const sw = 110 * s, sh = 80 * s;
+          ctx.beginPath(); ctx.moveTo(cx - sw / 2, cy); ctx.lineTo(cx + sw / 2, cy); ctx.lineTo(cx + sw / 2 + 20 * s, cy + sh); ctx.lineTo(cx - sw / 2 - 20 * s, cy + sh); ctx.closePath();
+          const sg = ctx.createLinearGradient(cx, cy, cx, cy + sh); sg.addColorStop(0, '#1a3070'); sg.addColorStop(1, '#0d1848');
+          ctx.fillStyle = sg; ctx.fill();
+          for (let i = 0; i < 5; i++) { const px = cx - sw / 2 - 10 * s + i * ((sw + 20 * s) / 4); ctx.beginPath(); ctx.moveTo(cx - sw / 2 + (i * (sw) / 4), cy); ctx.lineTo(px, cy + sh); ctx.strokeStyle = 'rgba(255,255,255,.1)'; ctx.lineWidth = 1.5 * s; ctx.stroke(); }
+          ctx.restore();
+        })(W * .72, H * .72);
+        drawFloatingBadge(ctx, W * .73, H * .1, 'Girls Frocks & Skirts', '#e879b0', s);
+        drawGoldLines(ctx, W, H, '#e879b0');
+      }
+
+      function drawSlide_Sports(ctx, W, H) {
+        makeBg(ctx, W, H, ['#001a10', '#002018', '#001a10'], '#3ecf8e');
+        const s = Math.min(W, H) / 700;
+        // T-shirt
+        (function (cx, cy) {
+          ctx.save(); ctx.shadowColor = 'rgba(0,0,0,.7)'; ctx.shadowBlur = 50 * s;
+          const bx = cx - 55 * s, by = cy - 80 * s, bw = 110 * s, bh = 140 * s;
+          const bg = ctx.createLinearGradient(bx, by, bx + bw, by + bh);
+          bg.addColorStop(0, '#1a3060'); bg.addColorStop(1, '#0d1848');
+          rr(ctx, bx, by, bw, bh, 10 * s); ctx.fillStyle = bg; ctx.fill();
+          ctx.beginPath(); ctx.moveTo(bx, by + 8 * s); ctx.lineTo(bx - 40 * s, by + 22 * s); ctx.lineTo(bx - 38 * s, by + 75 * s); ctx.lineTo(bx, by + 68 * s); ctx.closePath();
+          ctx.fillStyle = '#1a2f60'; ctx.fill();
+          ctx.beginPath(); ctx.moveTo(bx + bw, by + 8 * s); ctx.lineTo(bx + bw + 40 * s, by + 22 * s); ctx.lineTo(bx + bw + 38 * s, by + 75 * s); ctx.lineTo(bx + bw, by + 68 * s); ctx.closePath();
+          ctx.fillStyle = '#1a2f60'; ctx.fill();
+          // Collar
+          ctx.beginPath(); ctx.arc(cx, by + 18 * s, 18 * s, Math.PI, 0); ctx.strokeStyle = 'rgba(62,207,142,.5)'; ctx.lineWidth = 3 * s; ctx.stroke();
+          // Stripes
+          for (let i = 0; i < 3; i++) { rr(ctx, bx, by + 30 * s + i * 18 * s, bw, 6 * s, 3 * s); ctx.fillStyle = `rgba(62,207,142,${.12 + i * .04})`; ctx.fill(); }
+          // Logo area
+          rr(ctx, cx - 22 * s, by + 70 * s, 44 * s, 44 * s, 8 * s); ctx.fillStyle = 'rgba(62,207,142,.12)'; ctx.fill(); ctx.strokeStyle = 'rgba(62,207,142,.4)'; ctx.lineWidth = 1.5 * s; ctx.stroke();
+          ctx.font = `700 ${14 * s}px Arial Black`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillStyle = 'rgba(62,207,142,.7)'; ctx.fillText('A1', cx, by + 92 * s);
+          ctx.restore();
+        })(W * .72, H * .44);
+        // Shorts
+        (function (cx, cy) {
+          ctx.save(); ctx.shadowColor = 'rgba(0,0,0,.6)'; ctx.shadowBlur = 30 * s;
+          const shg = ctx.createLinearGradient(cx - 45 * s, cy, cx + 45 * s, cy + 85 * s);
+          shg.addColorStop(0, '#1a3060'); shg.addColorStop(1, '#0d1848');
+          rr(ctx, cx - 45 * s, cy, 90 * s, 85 * s, 12 * s); ctx.fillStyle = shg; ctx.fill();
+          ctx.beginPath(); ctx.moveTo(cx, cy + 85 * s); ctx.lineTo(cx - 5 * s, cy + 28 * s); ctx.lineTo(cx + 5 * s, cy + 28 * s); ctx.closePath();
+          ctx.fillStyle = 'rgba(10,15,46,.5)'; ctx.fill();
+          rr(ctx, cx - 40 * s, cy, 80 * s, 14 * s, 4 * s); ctx.fillStyle = '#3ecf8e'; ctx.globalAlpha = .7; ctx.fill();
+          ctx.restore();
+        })(W * .73, H * .7);
+        drawFloatingBadge(ctx, W * .73, H * .1, 'P.T. Sports Collection', '#3ecf8e', s);
+        drawFloatingBadge(ctx, W * .86, H * .8, 'Dry-Fit Fabric', '#3ecf8e', s * .85);
+        drawGoldLines(ctx, W, H, '#3ecf8e');
+      }
+
+      function drawSlide_Accessories(ctx, W, H) {
+        makeBg(ctx, W, H, ['#1a1000', '#261800', '#301e00'], '#f0c96e');
+        const s = Math.min(W, H) / 700;
+        // Belt
+        (function (cx, cy) {
+          ctx.save(); ctx.shadowColor = 'rgba(0,0,0,.6)'; ctx.shadowBlur = 25 * s;
+          const bh = 28 * s, by = cy - bh / 2, bw = 180 * s;
+          rr(ctx, cx - bw / 2, by, bw, bh, 6 * s);
+          const bg = ctx.createLinearGradient(cx - bw / 2, by, cx + bw / 2, by + bh); bg.addColorStop(0, '#8B4513'); bg.addColorStop(.5, '#6B3010'); bg.addColorStop(1, '#4a1e08'); ctx.fillStyle = bg; ctx.fill();
+          for (let i = 0; i < 5; i++) { ctx.beginPath(); ctx.ellipse(cx - bw / 2 + 20 * s + i * 18 * s, cy, 2.5 * s, 4 * s, 0, 0, Math.PI * 2); ctx.fillStyle = 'rgba(0,0,0,.5)'; ctx.fill(); }
+          const buckW = 42 * s, buckH = 36 * s, buckX = cx + bw / 2 - buckW / 2 - 10 * s, buckY = cy - buckH / 2;
+          rr(ctx, buckX, buckY, buckW, buckH, 5 * s);
+          const bkG = ctx.createLinearGradient(buckX, buckY, buckX + buckW, buckY + buckH); bkG.addColorStop(0, '#f0c96e'); bkG.addColorStop(.5, '#d4a843'); bkG.addColorStop(1, '#906010'); ctx.fillStyle = bkG; ctx.fill();
+          rr(ctx, buckX + 8 * s, buckY + 7 * s, buckW - 16 * s, buckH - 14 * s, 3 * s); ctx.fillStyle = 'rgba(0,0,0,.4)'; ctx.fill();
+          ctx.save(); ctx.font = `900 ${9 * s}px Arial Black`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillStyle = 'rgba(0,0,0,.5)'; ctx.fillText('A1', buckX + buckW / 2 + 1, cy + 1); ctx.fillStyle = '#f0c96e'; ctx.fillText('A1', buckX + buckW / 2, cy); ctx.restore();
+          ctx.restore();
+        })(W * .65, H * .32);
+        // Tie
+        (function (cx, cy) {
+          ctx.save(); ctx.shadowColor = 'rgba(0,0,0,.5)'; ctx.shadowBlur = 20 * s;
+          ctx.beginPath(); ctx.moveTo(cx - 14 * s, cy - 60 * s); ctx.lineTo(cx + 14 * s, cy - 60 * s); ctx.lineTo(cx + 10 * s, cy - 76 * s); ctx.lineTo(cx, cy - 82 * s); ctx.lineTo(cx - 10 * s, cy - 76 * s); ctx.closePath();
+          const kg = ctx.createLinearGradient(cx - 14 * s, cy - 82 * s, cx + 14 * s, cy - 60 * s); kg.addColorStop(0, '#2a3f80'); kg.addColorStop(1, '#1a2f60'); ctx.fillStyle = kg; ctx.fill();
+          ctx.beginPath(); ctx.moveTo(cx - 14 * s, cy - 60 * s); ctx.lineTo(cx + 14 * s, cy - 60 * s); ctx.lineTo(cx + 20 * s, cy + 10 * s); ctx.lineTo(cx, cy + 65 * s); ctx.lineTo(cx - 20 * s, cy + 10 * s); ctx.closePath();
+          const tg = ctx.createLinearGradient(cx - 20 * s, cy - 60 * s, cx + 20 * s, cy + 65 * s); tg.addColorStop(0, '#2a3f90'); tg.addColorStop(.5, '#1a2f70'); tg.addColorStop(1, '#0d1840'); ctx.fillStyle = tg; ctx.fill();
+          ctx.save(); ctx.beginPath(); ctx.moveTo(cx - 14 * s, cy - 60 * s); ctx.lineTo(cx + 14 * s, cy - 60 * s); ctx.lineTo(cx + 20 * s, cy + 10 * s); ctx.lineTo(cx, cy + 65 * s); ctx.lineTo(cx - 20 * s, cy + 10 * s); ctx.closePath(); ctx.clip();
+          ctx.globalAlpha = .35; for (let i = -5; i < 10; i++) { const yy = cy - 60 * s + i * 18 * s; ctx.beginPath(); ctx.moveTo(cx - 30 * s, yy); ctx.lineTo(cx + 30 * s, yy + 16 * s); ctx.strokeStyle = '#d4a843'; ctx.lineWidth = 8 * s; ctx.stroke(); } ctx.restore();
+          ctx.strokeStyle = 'rgba(212,168,67,.5)'; ctx.lineWidth = 1.2 * s;
+          ctx.beginPath(); ctx.moveTo(cx - 14 * s, cy - 60 * s); ctx.lineTo(cx + 14 * s, cy - 60 * s); ctx.lineTo(cx + 20 * s, cy + 10 * s); ctx.lineTo(cx, cy + 65 * s); ctx.lineTo(cx - 20 * s, cy + 10 * s); ctx.closePath(); ctx.stroke();
+          ctx.restore();
+        })(W * .8, H * .5);
+        // Socks
+        (function (cx, cy) {
+          ctx.save(); ctx.shadowColor = 'rgba(0,0,0,.4)'; ctx.shadowBlur = 15 * s;
+          rr(ctx, cx - 16 * s, cy - 55 * s, 32 * s, 75 * s, 14 * s);
+          const lg = ctx.createLinearGradient(cx - 16 * s, cy - 55 * s, cx + 16 * s, cy + 20 * s); lg.addColorStop(0, '#f0ede4'); lg.addColorStop(.5, '#d8d4c0'); lg.addColorStop(1, '#b8b098'); ctx.fillStyle = lg; ctx.fill();
+          rr(ctx, cx - 4 * s, cy + 12 * s, 38 * s, 24 * s, 10 * s); ctx.fillStyle = '#d8d4c0'; ctx.fill();
+          rr(ctx, cx - 18 * s, cy - 58 * s, 36 * s, 18 * s, 8 * s);
+          const cg = ctx.createLinearGradient(cx - 18 * s, cy - 58 * s, cx + 18 * s, cy - 40 * s); cg.addColorStop(0, '#d4a843'); cg.addColorStop(1, '#906010'); ctx.fillStyle = cg; ctx.fill();
+          ctx.beginPath(); ctx.moveTo(cx - 16 * s, cy - 20 * s); ctx.lineTo(cx + 16 * s, cy - 20 * s); ctx.strokeStyle = '#d4a843'; ctx.lineWidth = 3.5 * s; ctx.globalAlpha = .8; ctx.stroke();
+          ctx.restore();
+        })(W * .66, H * .68);
+        drawFloatingBadge(ctx, W * .73, H * .1, 'Complete Uniform Accessories', '#f0c96e', s);
+        drawGoldLines(ctx, W, H, '#f0c96e');
+      }
+
+      function drawSlide_Logo(ctx, W, H) {
+        makeBg(ctx, W, H, ['#0a0f2e', '#0d1540', '#162060'], '#d4a843');
+        const s = Math.min(W, H) / 700, cx = W * .75, cy = H * .46;
+        ctx.save(); ctx.shadowColor = 'rgba(212,168,67,.4)'; ctx.shadowBlur = 60 * s;
+        rr(ctx, cx - 80 * s, cy - 90 * s, 160 * s, 180 * s, 14 * s);
+        const pg = ctx.createLinearGradient(cx - 80 * s, cy - 90 * s, cx + 80 * s, cy + 90 * s); pg.addColorStop(0, '#1a2560'); pg.addColorStop(1, '#0a1230');
+        ctx.fillStyle = pg; ctx.fill(); ctx.strokeStyle = 'rgba(212,168,67,.4)'; ctx.lineWidth = 2 * s; ctx.stroke(); ctx.restore();
+        for (let i = 0; i < 40; i++) { const a = i * (Math.PI * 2 / 40); ctx.beginPath(); ctx.arc(cx + 72 * s * Math.cos(a) * .88, cy + 72 * s * Math.sin(a) * .78, 2.8 * s, 0, Math.PI * 2); ctx.fillStyle = i % 2 === 0 ? '#d4a843' : '#f0c96e'; ctx.globalAlpha = .8; ctx.fill(); }
+        ctx.globalAlpha = 1;
+        ctx.beginPath(); ctx.arc(cx, cy, 62 * s, 0, Math.PI * 2);
+        const rg = ctx.createLinearGradient(cx - 62 * s, cy - 62 * s, cx + 62 * s, cy + 62 * s); rg.addColorStop(0, '#f0c96e'); rg.addColorStop(.5, '#d4a843'); rg.addColorStop(1, '#906010'); ctx.strokeStyle = rg; ctx.lineWidth = 4.5 * s; ctx.stroke();
+        ctx.beginPath(); ctx.arc(cx, cy, 58 * s, 0, Math.PI * 2);
+        const ig = ctx.createRadialGradient(cx - 14 * s, cy - 14 * s, 0, cx, cy, 58 * s); ig.addColorStop(0, '#243878'); ig.addColorStop(1, '#0a1230'); ctx.fillStyle = ig; ctx.fill();
+        ctx.beginPath(); ctx.moveTo(cx, cy - 38 * s); ctx.lineTo(cx + 28 * s, cy - 22 * s); ctx.lineTo(cx + 28 * s, cy + 8 * s); ctx.quadraticCurveTo(cx + 28 * s, cy + 34 * s, cx, cy + 44 * s); ctx.quadraticCurveTo(cx - 28 * s, cy + 34 * s, cx - 28 * s, cy + 8 * s); ctx.lineTo(cx - 28 * s, cy - 22 * s); ctx.closePath();
+        const shg = ctx.createLinearGradient(cx - 28 * s, cy - 38 * s, cx + 28 * s, cy + 44 * s); shg.addColorStop(0, 'rgba(212,168,67,.12)'); shg.addColorStop(1, 'transparent'); ctx.fillStyle = shg; ctx.fill(); ctx.strokeStyle = 'rgba(212,168,67,.6)'; ctx.lineWidth = 1.5 * s; ctx.stroke();
+        ctx.save(); ctx.shadowColor = 'rgba(0,0,0,.8)'; ctx.shadowBlur = 8 * s; ctx.font = `900 ${36 * s}px Arial Black`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+        ctx.fillStyle = 'rgba(140,100,20,.5)'; ctx.fillText('A1', cx + 2, cy - 2 * s);
+        const tg = ctx.createLinearGradient(cx - 22 * s, cy - 18 * s, cx + 22 * s, cy + 18 * s); tg.addColorStop(0, '#f0c96e'); tg.addColorStop(.5, '#fff'); tg.addColorStop(1, '#d4a843'); ctx.fillStyle = tg; ctx.fillText('A1', cx, cy - 4 * s);
+        ctx.font = `700 ${7 * s}px Arial`; ctx.fillStyle = 'rgba(212,168,67,.8)'; ctx.fillText('UNIFORMS', cx, cy + 16 * s); ctx.restore();
+        drawUniformCard(ctx, cx - 130 * s, cy - 20 * s, W, H, s * .55, '#1a2f6e');
+        drawUniformCard(ctx, cx + 145 * s, cy + 30 * s, W, H, s * .48, '#0d1840');
+        drawFloatingBadge(ctx, W * .73, H * .1, 'School Embroidery & Logos', '#d4a843', s);
+        drawGoldLines(ctx, W, H, '#d4a843');
+      }
+
+      function drawSlide_Bulk(ctx, W, H) {
+        makeBg(ctx, W, H, ['#1a0808', '#280c0c', '#300e0e'], '#e05555');
+        const s = Math.min(W, H) / 700;
+        const colors = ['#1a2f6e', '#2a3f80', '#0d1840', '#1a3060', '#243888', '#0f2050'];
+        for (let r = 0; r < 2; r++) for (let c = 0; c < 3; c++) drawUniformCard(ctx, W * .57 + c * 105 * s, H * .18 + r * 105 * s * 1.1, W, H, s * .62, colors[r * 3 + c]);
+        ctx.save(); ctx.font = `900 ${80 * s}px Arial Black`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+        ctx.fillStyle = 'rgba(224,85,85,.08)'; ctx.fillText('500+', W * .75, H * .88);
+        ctx.font = `600 ${9 * s}px Arial`; ctx.fillStyle = 'rgba(224,85,85,.4)'; ctx.fillText('SCHOOLS SUPPLIED', W * .75, H * .94); ctx.restore();
+        drawFloatingBadge(ctx, W * .73, H * .08, 'Trusted By 500+ Schools', '#e05555', s);
+        drawFloatingBadge(ctx, W * .88, H * .82, 'Bulk Orders Welcome', '#f0c96e', s * .85);
+        drawGoldLines(ctx, W, H, '#e05555');
+      }
+
+      /* BUILD & INIT SLIDER */
+      const track = document.getElementById('slTrack');
+      const thumbsEl = document.getElementById('slThumbs');
+      const dotsEl = document.getElementById('slDots');
+      const curNumEl = document.getElementById('slCurNum');
+      const totNumEl = document.getElementById('slTotNum');
+      const prog = document.getElementById('slProg');
+      const N = SLIDES.length;
+      totNumEl.textContent = String(N).padStart(2, '0');
+
+      const slideEls = [], thumbEls = [];
+
+      SLIDES.forEach((data, i) => {
+        const slide = document.createElement('div');
+        slide.className = 'sl-slide';
+        slide.innerHTML = `
+        <canvas class="sl-canvas" id="slc${i}"></canvas>
+        <div class="sl-overlay"></div>
+        <div class="sl-content">
+          <div class="sl-inner">
+            <div class="sl-badge"><i class="fas fa-star"></i> ${data.badge}</div>
+            <h1 class="sl-title">
+              <span class="wh">${data.title1}</span>
+              <span class="go">${data.title2}</span>
+            </h1>
+            <p class="sl-desc">${data.desc}</p>
+            <div class="sl-btns">
+              <a href="${data.btn1.href}" class="${data.btn1.cls}">${data.btn1.label}</a>
+              <a href="${data.btn2.href}" class="${data.btn2.cls}">${data.btn2.label}</a>
+            </div>
+          </div>
+        </div>
+        <div class="sl-deco">
+          <span class="sl-deco-num">${data.decoNum}</span>
+          <span class="sl-deco-label">${data.decoLabel}</span>
+        </div>`;
+        track.appendChild(slide);
+        slideEls.push(slide);
+
+        const cvs = document.getElementById('slc' + i);
+        const redraw = () => { cvs.width = innerWidth; cvs.height = innerHeight; data.draw(cvs.getContext('2d'), cvs.width, cvs.height); };
+        redraw();
+        window.addEventListener('resize', redraw);
+
+        const tw = document.createElement('div');
+        tw.className = 'sl-thumb'; tw.dataset.idx = i;
+        const tc = document.createElement('canvas');
+        tc.width = 144; tc.height = 90;
+        data.draw(tc.getContext('2d'), 144, 90);
+        tw.appendChild(tc); thumbsEl.appendChild(tw); thumbEls.push(tw);
+
+        const dot = document.createElement('button');
+        dot.className = 'sl-dot'; dot.dataset.idx = i;
+        dot.setAttribute('aria-label', 'Slide ' + (i + 1));
+        dotsEl.appendChild(dot);
+      });
+
+      let current = 0, timer = null;
+
+      function goTo(idx) {
+        idx = ((idx % N) + N) % N;
+        slideEls[current].classList.remove('active');
+        thumbEls[current].classList.remove('active');
+        dotsEl.children[current].classList.remove('active');
+        current = idx;
+        slideEls[current].classList.add('active');
+        thumbEls[current].classList.add('active');
+        dotsEl.children[current].classList.add('active');
+        curNumEl.textContent = String(current + 1).padStart(2, '0');
+        prog.classList.remove('go'); prog.style.transition = 'none'; prog.style.width = '0%';
+        void prog.offsetWidth;
+        prog.classList.add('go');
+      }
+
+      function startAuto() { clearInterval(timer); timer = setInterval(() => goTo(current + 1), 7000); }
+      function restartAuto() { clearInterval(timer); startAuto(); }
+
+      document.getElementById('slPrev').addEventListener('click', () => { goTo(current - 1); restartAuto(); });
+      document.getElementById('slNext').addEventListener('click', () => { goTo(current + 1); restartAuto(); });
+
+      thumbsEl.querySelectorAll('.sl-thumb').forEach(t => t.addEventListener('click', () => { goTo(+t.dataset.idx); restartAuto(); }));
+      dotsEl.querySelectorAll('.sl-dot').forEach(d => d.addEventListener('click', () => { goTo(+d.dataset.idx); restartAuto(); }));
+
+      // Swipe
+      let tx = 0;
+      document.getElementById('hero').addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
+      document.getElementById('hero').addEventListener('touchend', e => { const diff = tx - e.changedTouches[0].clientX; if (Math.abs(diff) > 50) { goTo(current + (diff > 0 ? 1 : -1)); restartAuto(); } }, { passive: true });
+
+      // Keyboard
+      document.addEventListener('keydown', e => {
+        if (e.key === 'ArrowLeft') { goTo(current - 1); restartAuto(); }
+        if (e.key === 'ArrowRight') { goTo(current + 1); restartAuto(); }
+      });
+
+      // Init
+      goTo(0);
+      startAuto();
+
+    })();
+
+    /*====== COUNT UP for stats ======*/
+    document.querySelectorAll('.sn[data-target]').forEach(el => {
+      const ob = new IntersectionObserver(([e]) => {
+        if (e.isIntersecting) {
+          const T = +el.dataset.target, step = T / (2000 / 16); let cur = 0;
+          const t = setInterval(() => { cur += step; if (cur >= T) { cur = T; clearInterval(t); } el.textContent = T > 1000 ? Math.floor(cur).toLocaleString() : Math.floor(cur); }, 16);
+          ob.unobserve(el);
+        }
+      }, { threshold: .5 });
+      ob.observe(el);
+    });
+  </script>
+
+  <script>
+    //  ----------------------------------------
+    //  ALL JAVASCRIPT — Pure HTML/CSS/JS Only
+    // --------------------------------------------
+
+
+    /* LOADER */
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        const l = document.getElementById('loader');
+        l.style.opacity = '0';
+        setTimeout(() => l.style.display = 'none', 500);
+      }, 1800);
+    });
+
+    /* CUSTOM CURSOR */
+    const cur = document.getElementById('cur'), curt = document.getElementById('curt');
+    if (cur) document.addEventListener('mousemove', e => {
+      cur.style.transform = `translate(${e.clientX - 9}px,${e.clientY - 9}px)`;
+      setTimeout(() => { if (curt) curt.style.transform = `translate(${e.clientX - 19}px,${e.clientY - 19}px)`; }, 80);
+    });
+
+    /* HAMBURGER */
+    const hbtn = document.getElementById('hb'), mn = document.getElementById('mn');
+    hbtn.addEventListener('click', () => {
+      hbtn.classList.toggle('o'); mn.classList.toggle('o');
+      document.body.style.overflow = mn.classList.contains('o') ? 'hidden' : '';
+    });
+    document.querySelectorAll('.ml').forEach(a => a.addEventListener('click', () => {
+      hbtn.classList.remove('o'); mn.classList.remove('o'); document.body.style.overflow = '';
+    }));
+
+    /* PARTICLES */
+    (function () {
+      const pc = document.getElementById('pc'), ctx = pc.getContext('2d');
+      function rsz() { pc.width = innerWidth; pc.height = innerHeight; } rsz();
+      window.addEventListener('resize', rsz);
+      const pts = Array.from({ length: 65 }, () => ({
+        x: Math.random() * pc.width, y: Math.random() * pc.height,
+        r: Math.random() * 1.8 + .4, vx: (Math.random() - .5) * .32, vy: (Math.random() - .5) * .32,
+        a: Math.random() * .38 + .1, g: Math.random() > .5
+      }));
+      (function draw() {
+        ctx.clearRect(0, 0, pc.width, pc.height);
+        pts.forEach(p => {
+          p.x += p.vx; p.y += p.vy;
+          if (p.x < 0) p.x = pc.width; if (p.x > pc.width) p.x = 0;
+          if (p.y < 0) p.y = pc.height; if (p.y > pc.height) p.y = 0;
+          ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = p.g ? `rgba(212,168,67,${p.a})` : `rgba(255,255,255,${p.a * .3})`; ctx.fill();
+        });
+        for (let i = 0; i < pts.length; i++) for (let j = i + 1; j < pts.length; j++) {
+          const dx = pts[i].x - pts[j].x, dy = pts[i].y - pts[j].y, d = Math.sqrt(dx * dx + dy * dy);
+          if (d < 95) {
+            ctx.beginPath(); ctx.moveTo(pts[i].x, pts[i].y); ctx.lineTo(pts[j].x, pts[j].y);
+            ctx.strokeStyle = `rgba(212,168,67,${.05 * (1 - d / 95)})`; ctx.lineWidth = .5; ctx.stroke();
+          }
+        }
+        requestAnimationFrame(draw);
+      })();
+    })();
+
+    /* NAVBAR SCROLL */
+    window.addEventListener('scroll', () => document.getElementById('nb').classList.toggle('sc', scrollY > 50));
+
+    /* SCROLL REVEAL */
+    const ro = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add('v'); }), { threshold: .1 });
+    document.querySelectorAll('.rv,.rl2,.rr2').forEach(el => ro.observe(el));
+
+    /* COUNT UP */
+    document.querySelectorAll('.sn[data-target]').forEach(el => {
+      const ob = new IntersectionObserver(([e]) => {
+        if (e.isIntersecting) {
+          const T = +el.dataset.target, step = T / (2000 / 16); let cur = 0;
+          const t = setInterval(() => {
+            cur += step;
+            if (cur >= T) { cur = T; clearInterval(t); }
+            el.textContent = T > 1000 ? Math.floor(cur).toLocaleString() : Math.floor(cur);
+          }, 16);
+          ob.unobserve(el);
+        }
+      }, { threshold: .5 });
+      ob.observe(el);
+    });
+
+    /* 3D CARD TILT */
+    const cw = document.getElementById('c3w'), cd = document.getElementById('c3'), cg = document.getElementById('c3g');
+    if (cw) {
+      cw.addEventListener('mousemove', e => {
+        const r = cd.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
+        cd.style.transform = `rotateX(${(y - r.height / 2) / r.height * -11}deg) rotateY(${(x - r.width / 2) / r.width * 11}deg) scale(1.02)`;
+        cg.style.setProperty('--mx', `${x / r.width * 100}%`); cg.style.setProperty('--my', `${y / r.height * 100}%`);
+      });
+      cw.addEventListener('mouseleave', () => { cd.style.transform = ''; });
+    }
+
+    /* RING CHART */
+    (function () {
+      const rcEl = document.getElementById('rc');
+      if (!rcEl) return;
+      function getCanvasSize() { return window.innerWidth <= 480 ? 190 : window.innerWidth <= 900 ? 220 : 280; }
+      function initRingChart() {
+        const sz = getCanvasSize();
+        rcEl.width = sz; rcEl.height = sz;
+        const c2 = rcEl.getContext('2d'), cx = sz / 2, cy = sz / 2, rad = sz * .375, lw = sz * .086;
+        const segs = [{ p: .98, c: '#d4a843' }, { p: .95, c: '#1a2560' }, { p: .92, c: '#f0c96e' }, { p: .88, c: '#2e3f8a' }];
+        let prog = 0, started = false;
+        function drawR(pv) {
+          c2.clearRect(0, 0, sz, sz); c2.beginPath(); c2.arc(cx, cy, rad, 0, Math.PI * 2);
+          c2.strokeStyle = 'rgba(212,168,67,.07)'; c2.lineWidth = lw; c2.stroke();
+          const gap = .12, aps = (Math.PI * 2 - gap * 4) / 4;
+          segs.forEach((s, i) => {
+            const st = -Math.PI / 2 + i * (aps + gap), en = st + aps * s.p * pv;
+            c2.beginPath(); c2.arc(cx, cy, rad, st, en); c2.strokeStyle = s.c; c2.lineWidth = lw; c2.lineCap = 'round'; c2.stroke();
+          });
+        }
+        new IntersectionObserver(([e]) => {
+          if (e.isIntersecting && !started) {
+            started = true;
+            const a = () => { prog += .015; drawR(Math.min(prog, 1)); if (prog < 1) requestAnimationFrame(a); }; a();
+          }
+        }, { threshold: .3 }).observe(rcEl);
+        drawR(0);
+      }
+      initRingChart();
+      window.addEventListener('resize', initRingChart);
+    })();
+
+
+
+    /* FORMS */
+    function showToast() {
+      const t = document.getElementById('toast'); t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 3500);
+    }
+    document.getElementById('fbForm').addEventListener('submit', e => { e.preventDefault(); showToast(); e.target.reset(); });
+    document.getElementById('ctForm').addEventListener('submit', e => { e.preventDefault(); showToast(); e.target.reset(); });
+
+
+    //  3D CAROUSEL
+
+    (function () {
+      const ITEMS = [
+        { src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNe7tgEX86CbonRn9ClrusNZyQ-02XQEWphg&s', title: 'Academic Style', tag: 'Boys Collection' },
+        { src: 'https://images.unsplash.com/photo-1571260899304-425eee4c7efc?w=600&q=80', title: 'Girls Frock', tag: 'Girls Uniform' },
+        { src: 'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=600&q=80', title: 'School Pride', tag: 'Education era' },
+        { src: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?w=600&q=80', title: 'Classroom Ready', tag: 'All Seasons' },
+        { src: 'https://www.akoa.co.uk/wp-content/uploads/2023/01/hp-about-us-mob.jpg', title: 'Sports Wear', tag: 'P.T. Collection' },
+        { src: 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=600&q=80', title: 'School Life', tag: 'Premium Range' },
+
+        { src: 'https://s.alicdn.com/@sc04/kf/H2313ac72e448408db247f69a42ab0fe2j/Children-s-School-Tracksuit-2-Piece-Sports-Uniform-Set-Zip-Up-Jacket-Pants-Comfortable-PE-Wear-for-Boys-Girls.jpg_300x300.jpg', title: 'Track Suits', tag: 'Sportswear' },
+        { src: 'https://s.alicdn.com/@sc04/kf/Hd699d3458ed348df8e7d98c637d8afb7C/Premium-Quality-Custom-Stripe-Logo-Silk-Ties-Factory-Direct-Polyester-Uniform-Neck-Tie-for-School-Club.jpg', title: 'Accessories', tag: 'Ties & Belts' },
+      ];
+
+      const ring = document.getElementById('crRing');
+      const dotsEl = document.getElementById('crDots');
+      const curEl = document.getElementById('crCur');
+      const totEl = document.getElementById('crTot');
+      if (!ring) return;
+
+      const N = ITEMS.length;
+      totEl.textContent = String(N).padStart(2, '0');
+      let targetIdx = 0;
+      const angleStep = 360 / N;
+
+      function getCardSize() {
+        const vw = window.innerWidth;
+        let w;
+        if (vw < 480) w = Math.min(110, vw * 0.28);
+        else if (vw < 768) w = Math.min(140, vw * 0.22);
+        else w = Math.min(190, vw * 0.15);
+        return { w: Math.round(w), h: Math.round(w * 1.38) };
+      }
+
+      function getRadius() {
+        const vw = window.innerWidth;
+        if (vw < 480) return Math.max(150, vw * 0.36);
+        if (vw < 768) return Math.max(210, vw * 0.3);
+        return Math.min(400, Math.max(230, vw * 0.26));
+      }
+
+      ITEMS.forEach((item, i) => {
+        const card = document.createElement('div');
+        card.className = 'cr-card';
+        card.dataset.i = i;
+        const refl = document.createElement('div');
+        refl.className = 'cr-card-refl';
+        const reflImg = document.createElement('img'); reflImg.src = item.src; reflImg.alt = '';
+        refl.appendChild(reflImg);
+        const img = document.createElement('img');
+        img.src = item.src; img.alt = item.title; img.loading = i < 3 ? 'eager' : 'lazy';
+        const overlay = document.createElement('div');
+        overlay.className = 'cr-card-overlay';
+        overlay.innerHTML = `<h3>${item.title}</h3><p>${item.tag}</p>`;
+        card.appendChild(refl); card.appendChild(img); card.appendChild(overlay);
+        ring.appendChild(card);
+        const dot = document.createElement('button');
+        dot.className = 'cr-dot' + (i === 0 ? ' cr-dot-active' : '');
+        dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+        dot.addEventListener('click', () => goTo(i));
+        dotsEl.appendChild(dot);
+      });
+
+      function applyCardSizes() {
+        const { w, h } = getCardSize(), R = getRadius();
+        ring.style.setProperty('--cr-w', w + 'px'); ring.style.setProperty('--cr-h', h + 'px');
+        ring.querySelectorAll('.cr-card').forEach((card, i) => {
+          card.style.transform = `rotateY(${(i / N) * 360}deg) translateZ(${R}px)`;
+          card.querySelectorAll('.cr-card-refl').forEach(r => { r.style.width = w + 'px'; r.style.height = h + 'px'; });
+        });
+      }
+
+      function update(animate) {
+        if (animate === false) ring.style.transition = 'none';
+        ring.style.transform = `rotateY(${-targetIdx * angleStep}deg)`;
+        if (animate === false) requestAnimationFrame(() => { ring.style.transition = ''; });
+        ring.querySelectorAll('.cr-card').forEach((c, i) => c.classList.toggle('cr-active', i === targetIdx));
+        dotsEl.querySelectorAll('.cr-dot').forEach((d, i) => d.classList.toggle('cr-dot-active', i === targetIdx));
+        curEl.textContent = String(targetIdx + 1).padStart(2, '0');
+      }
+
+      function goTo(idx) { targetIdx = ((idx % N) + N) % N; update(true); }
+
+      document.getElementById('crPrev').addEventListener('click', () => goTo(targetIdx - 1));
+      document.getElementById('crNext').addEventListener('click', () => goTo(targetIdx + 1));
+
+      let dragX = 0, dragIdx = 0, dragging = false;
+      ring.addEventListener('mousedown', e => { e.preventDefault(); dragging = true; dragX = e.clientX; dragIdx = targetIdx; ring.classList.add('dragging'); });
+      window.addEventListener('mousemove', e => {
+        if (!dragging) return;
+        const diff = dragX - e.clientX;
+        const steps = Math.round(diff / (window.innerWidth / N / 1.5));
+        const ni = ((dragIdx + steps) % N + N) % N;
+        if (ni !== targetIdx) { targetIdx = ni; update(true); }
+      });
+      window.addEventListener('mouseup', () => { dragging = false; ring.classList.remove('dragging'); });
+      ring.addEventListener('touchstart', e => { dragX = e.touches[0].clientX; dragIdx = targetIdx; dragging = true; }, { passive: true });
+      window.addEventListener('touchmove', e => {
+        if (!dragging) return;
+        const diff = dragX - e.touches[0].clientX;
+        const steps = Math.round(diff / (window.innerWidth / N / 1.5));
+        const ni = ((dragIdx + steps) % N + N) % N;
+        if (ni !== targetIdx) { targetIdx = ni; update(true); }
+      }, { passive: true });
+      window.addEventListener('touchend', () => { dragging = false; });
+
+      let auto = setInterval(() => goTo(targetIdx + 1), 4000);
+      const pauseAuto = () => { clearInterval(auto); auto = setInterval(() => goTo(targetIdx + 1), 5500); };
+      document.getElementById('crPrev').addEventListener('click', pauseAuto);
+      document.getElementById('crNext').addEventListener('click', pauseAuto);
+
+      window.addEventListener('resize', () => { applyCardSizes(); update(false); });
+      applyCardSizes(); update(false);
+    })();
+
+    /* ══════════════════════════════
+       HERO SLIDER
+    ══════════════════════════════ */
+    // (function () {
+    //   /* Canvas helpers */
+    //   function rr(c, x, y, w, h, r) {
+    //     c.beginPath(); c.moveTo(x + r, y); c.lineTo(x + w - r, y); c.arcTo(x + w, y, x + w, y + r, r);
+    //     c.lineTo(x + w, y + h - r); c.arcTo(x + w, y + h, x + w - r, y + h, r); c.lineTo(x + r, y + h);
+    //     c.arcTo(x, y + h, x, y + h - r, r); c.lineTo(x, y + r); c.arcTo(x, y, x + r, y, r); c.closePath();
+    //   }
+
+    //   function makeBg(ctx, W, H, colors, accent) {
+    //     const g = ctx.createRadialGradient(W * .3, H * .3, 0, W * .5, H * .5, Math.max(W, H));
+    //     g.addColorStop(0, colors[1]); g.addColorStop(.55, colors[0]); g.addColorStop(1, colors[2] || colors[0]);
+    //     ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+    //     ctx.save(); ctx.strokeStyle = accent + '08'; ctx.lineWidth = 1;
+    //     for (let x = 0; x < W; x += 60) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke(); }
+    //     for (let y = 0; y < H; y += 60) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke(); }
+    //     ctx.restore();
+    //   }
+
+    //   function drawGoldLines(ctx, W, H, c) {
+    //     ctx.save(); ctx.globalAlpha = .07; ctx.strokeStyle = c; ctx.lineWidth = 1.5;
+    //     [[W * .15, 0, W * .85, H], [0, H * .2, W, H * .8], [W * .3, 0, W, H * .7]].forEach(([x1, y1, x2, y2]) => {
+    //       ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
+    //     });
+    //     ctx.restore();
+    //   }
+
+    //   function drawFloatingBadge(ctx, x, y, text, col, s) {
+    //     ctx.save(); ctx.shadowColor = col + '80'; ctx.shadowBlur = 15 * s;
+    //     const tw = ctx.measureText(text).width + 26 * s; const bh = 22 * s;
+    //     rr(ctx, x - tw / 2, y - bh / 2, tw, bh, 11 * s); ctx.fillStyle = col + '22'; ctx.fill();
+    //     ctx.strokeStyle = col + '88'; ctx.lineWidth = 1 * s; ctx.stroke(); ctx.restore();
+    //     ctx.font = `600 ${7.5 * s}px Outfit,sans-serif`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    //     ctx.fillStyle = col; ctx.fillText(text, x, y);
+    //   }
+
+    //   function drawUniformCard(ctx, x, y, W, H, s, color) {
+    //     ctx.save(); ctx.shadowColor = 'rgba(0,0,0,.4)'; ctx.shadowBlur = 20 * s;
+    //     const cw = 60 * s, ch = 80 * s;
+    //     rr(ctx, x, y, cw, ch, 6 * s);
+    //     const ug = ctx.createLinearGradient(x, y, x + cw, y + ch);
+    //     ug.addColorStop(0, color); ug.addColorStop(1, color + 'aa');
+    //     ctx.fillStyle = ug; ctx.fill(); ctx.strokeStyle = 'rgba(212,168,67,.2)'; ctx.lineWidth = 1 * s; ctx.stroke();
+    //     ctx.beginPath(); ctx.arc(x + cw / 2, y + 15 * s, 8 * s, 0, Math.PI * 2);
+    //     const hg = ctx.createRadialGradient(x + cw / 2, y + 8 * s, 0, x + cw / 2, y + 15 * s, 8 * s);
+    //     hg.addColorStop(0, '#f0d080'); hg.addColorStop(1, '#c89030'); ctx.fillStyle = hg; ctx.fill();
+    //     ctx.beginPath(); ctx.moveTo(x + cw / 2 - 10 * s, y + 30 * s); ctx.lineTo(x + cw / 2 + 10 * s, y + 30 * s);
+    //     ctx.lineTo(x + cw / 2 + 8 * s, y + ch - 10 * s); ctx.lineTo(x + cw / 2 - 8 * s, y + ch - 10 * s); ctx.closePath();
+    //     const tg = ctx.createLinearGradient(x + cw / 2 - 10 * s, y + 30 * s, x + cw / 2 + 10 * s, y + ch);
+    //     tg.addColorStop(0, color + 'ff'); tg.addColorStop(1, '#0a1240'); ctx.fillStyle = tg; ctx.fill(); ctx.restore();
+    //   }
+
+    //   function drawSlide_Shirts(ctx, W, H) {
+    //     makeBg(ctx, W, H, ['#0a0f2e', '#0d1540', '#162060'], '#d4a843');
+    //     const s = Math.min(W, H) / 700;
+    //     // Main shirt
+    //     const sx = W * .62, sy = H * .12, sw = W * .28, sh = H * .72;
+    //     ctx.save(); ctx.shadowColor = 'rgba(212,168,67,.25)'; ctx.shadowBlur = 40 * s;
+    //     const sg = ctx.createLinearGradient(sx, sy, sx + sw, sy + sh);
+    //     sg.addColorStop(0, '#2a3f90'); sg.addColorStop(.5, '#1a2f70'); sg.addColorStop(1, '#0d1840');
+    //     ctx.beginPath(); ctx.moveTo(sx + sw * .35, sy); ctx.lineTo(sx + sw * .65, sy);
+    //     ctx.lineTo(sx + sw, sy + sh * .18); ctx.lineTo(sx + sw, sy + sh); ctx.lineTo(sx, sy + sh);
+    //     ctx.lineTo(sx, sy + sh * .18); ctx.closePath(); ctx.fillStyle = sg; ctx.fill();
+    //     ctx.strokeStyle = 'rgba(212,168,67,.3)'; ctx.lineWidth = 1.5 * s; ctx.stroke(); ctx.restore();
+    //     // Collar
+    //     ctx.save(); ctx.beginPath(); ctx.moveTo(sx + sw * .35, sy); ctx.lineTo(sx + sw * .5, sy + sh * .12);
+    //     ctx.lineTo(sx + sw * .65, sy); ctx.lineTo(sx + sw * .58, sy - sh * .06); ctx.lineTo(sx + sw * .42, sy - sh * .06); ctx.closePath();
+    //     const cg = ctx.createLinearGradient(sx + sw * .35, sy - sh * .06, sx + sw * .65, sy + sh * .12);
+    //     cg.addColorStop(0, '#3a4fa0'); cg.addColorStop(1, '#1a2f70'); ctx.fillStyle = cg; ctx.fill(); ctx.restore();
+    //     // Buttons
+    //     for (let i = 0; i < 5; i++) { ctx.beginPath(); ctx.arc(sx + sw / 2, sy + sh * .2 + i * sh * .12, 4 * s, 0, Math.PI * 2); const bg2 = ctx.createRadialGradient(sx + sw / 2 - 1, sy + sh * .2 + i * sh * .12 - 1, 0, sx + sw / 2, sy + sh * .2 + i * sh * .12, 4 * s); bg2.addColorStop(0, '#f0c96e'); bg2.addColorStop(1, '#906010'); ctx.fillStyle = bg2; ctx.fill(); }
+    //     // Pocket
+    //     rr(ctx, sx + sw * .12, sy + sh * .25, sw * .22, sh * .16, 4 * s); ctx.strokeStyle = 'rgba(212,168,67,.5)'; ctx.lineWidth = 1.5 * s; ctx.stroke();
+    //     ctx.font = `900 ${11 * s}px Arial Black`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillStyle = 'rgba(212,168,67,.9)'; ctx.fillText('A1', sx + sw * .23, sy + sh * .33);
+    //     for (let c = 0; c < 3; c++) drawUniformCard(ctx, W * .57 + c * 85 * s, H * .55, W, H, s * .6, ['#1a2f6e', '#243888', '#0d1840'][c]);
+    //     drawFloatingBadge(ctx, W * .73, H * .08, 'Premium School Shirts', '#d4a843', s);
+    //     drawGoldLines(ctx, W, H, '#d4a843');
+    //   }
+
+    //   function drawSlide_FrockSkirt(ctx, W, H) {
+    //     makeBg(ctx, W, H, ['#0f0a2e', '#1a0d40', '#1a0f35'], '#c8a0d4');
+    //     const s = Math.min(W, H) / 700;
+    //     const fx = W * .65, fy = H * .05, fw = W * .22, fh = H * .88;
+    //     ctx.save(); ctx.shadowColor = 'rgba(180,120,220,.3)'; ctx.shadowBlur = 40 * s;
+    //     const fg = ctx.createLinearGradient(fx, fy, fx + fw, fy + fh);
+    //     fg.addColorStop(0, '#6a1a8a'); fg.addColorStop(.4, '#4a1060'); fg.addColorStop(1, '#200830');
+    //     ctx.beginPath(); ctx.moveTo(fx + fw * .3, fy); ctx.lineTo(fx + fw * .7, fy);
+    //     ctx.lineTo(fx + fw * .85, fy + fh * .15); ctx.bezierCurveTo(fx + fw * 1.4, fy + fh * .4, fx + fw * 1.3, fy + fh * .7, fx + fw * .85, fy + fh);
+    //     ctx.lineTo(fx + fw * .15, fy + fh); ctx.bezierCurveTo(fx - fw * .3, fy + fh * .7, fx - fw * .2, fy + fh * .4, fx + fw * .15, fy + fh * .15); ctx.closePath();
+    //     ctx.fillStyle = fg; ctx.fill(); ctx.strokeStyle = 'rgba(200,160,212,.4)'; ctx.lineWidth = 1.5 * s; ctx.stroke(); ctx.restore();
+    //     // Waistband
+    //     rr(ctx, fx + fw * .1, fy + fh * .28, fw * .8, fh * .06, 4 * s);
+    //     const wg = ctx.createLinearGradient(fx, fy + fh * .28, fx + fw, fy + fh * .34);
+    //     wg.addColorStop(0, '#d4a843'); wg.addColorStop(1, '#906010'); ctx.fillStyle = wg; ctx.fill();
+    //     // Pleats
+    //     ctx.save(); ctx.globalAlpha = .25; ctx.strokeStyle = '#c8a0d4'; ctx.lineWidth = 2 * s;
+    //     for (let i = 1; i < 5; i++) { const lx = fx + fw * .1 + i * (fw * .8 / 5); ctx.beginPath(); ctx.moveTo(lx, fy + fh * .34); ctx.lineTo(lx + (i - 2.5) * 8 * s, fy + fh); ctx.stroke(); } ctx.restore();
+    //     // Collar
+    //     ctx.beginPath(); ctx.moveTo(fx + fw * .3, fy); ctx.lineTo(fx + fw * .5, fy + fh * .12); ctx.lineTo(fx + fw * .7, fy);
+    //     ctx.lineTo(fx + fw * .6, fy - fh * .07); ctx.lineTo(fx + fw * .4, fy - fh * .07); ctx.closePath();
+    //     const cg = ctx.createLinearGradient(fx + fw * .3, fy - fh * .07, fx + fw * .7, fy + fh * .12);
+    //     cg.addColorStop(0, '#7a2a9a'); cg.addColorStop(1, '#3a0850'); ctx.fillStyle = cg; ctx.fill();
+    //     drawFloatingBadge(ctx, W * .73, H * .08, 'Elegant Frocks & Skirts', '#c8a0d4', s);
+    //     drawGoldLines(ctx, W, H, '#c8a0d4');
+    //   }
+
+    //   function drawSlide_Sports(ctx, W, H) {
+    //     makeBg(ctx, W, H, ['#001a0a', '#002810', '#003018'], '#40c070');
+    //     const s = Math.min(W, H) / 700;
+    //     const tx = W * .62, ty = H * .08, tw = W * .26, th = H * .6;
+    //     ctx.save(); ctx.shadowColor = 'rgba(40,160,80,.3)'; ctx.shadowBlur = 40 * s;
+    //     const tg = ctx.createLinearGradient(tx, ty, tx + tw, ty + th);
+    //     tg.addColorStop(0, '#1a7040'); tg.addColorStop(.5, '#105030'); tg.addColorStop(1, '#083020');
+    //     ctx.beginPath(); ctx.moveTo(tx + tw * .3, ty); ctx.lineTo(tx + tw * .7, ty);
+    //     ctx.lineTo(tx + tw, ty + th * .15); ctx.lineTo(tx + tw, ty + th); ctx.lineTo(tx, ty + th); ctx.lineTo(tx, ty + th * .15); ctx.closePath();
+    //     ctx.fillStyle = tg; ctx.fill(); ctx.strokeStyle = 'rgba(64,192,112,.4)'; ctx.lineWidth = 2 * s; ctx.stroke(); ctx.restore();
+    //     // Sports stripe
+    //     ctx.save(); ctx.beginPath(); ctx.moveTo(tx, ty + th * .3); ctx.lineTo(tx + tw, ty + th * .3);
+    //     ctx.lineTo(tx + tw, ty + th * .4); ctx.lineTo(tx, ty + th * .4); ctx.closePath();
+    //     const sg = ctx.createLinearGradient(tx, 0, tx + tw, 0); sg.addColorStop(0, 'rgba(212,168,67,.8)'); sg.addColorStop(.5, 'rgba(240,201,110,.9)'); sg.addColorStop(1, 'rgba(212,168,67,.8)');
+    //     ctx.fillStyle = sg; ctx.fill(); ctx.restore();
+    //     // Shorts
+    //     const qx = tx - tw * .05, qy = ty + th + H * .02, qw = tw * 1.1, qh = H * .28;
+    //     const qg = ctx.createLinearGradient(qx, qy, qx + qw, qy + qh);
+    //     qg.addColorStop(0, '#1a7040'); qg.addColorStop(1, '#083020');
+    //     ctx.beginPath(); ctx.moveTo(qx, qy); ctx.lineTo(qx + qw, qy); ctx.lineTo(qx + qw * .6, qy + qh); ctx.lineTo(qx + qw * .4, qy + qh); ctx.closePath();
+    //     ctx.fillStyle = qg; ctx.fill(); ctx.strokeStyle = 'rgba(64,192,112,.3)'; ctx.lineWidth = 1.5 * s; ctx.stroke();
+    //     // Logo
+    //     ctx.font = `900 ${14 * s}px Arial Black`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillStyle = 'rgba(212,168,67,.9)'; ctx.fillText('A1', tx + tw / 2, ty + th * .22);
+    //     drawFloatingBadge(ctx, W * .73, H * .08, 'P.T. Sports Collection', '#40c070', s);
+    //     drawGoldLines(ctx, W, H, '#40c070');
+    //   }
+
+    //   function drawSlide_Accessories(ctx, W, H) {
+    //     makeBg(ctx, W, H, ['#1a1000', '#261800', '#301e00'], '#f0c96e');
+    //     const s = Math.min(W, H) / 700;
+    //     // Belt
+    //     (function (cx, cy) {
+    //       ctx.save(); ctx.shadowColor = 'rgba(0,0,0,.6)'; ctx.shadowBlur = 25 * s;
+    //       const bh = 28 * s, by = cy - bh / 2, bw = 180 * s;
+    //       rr(ctx, cx - bw / 2, by, bw, bh, 6 * s);
+    //       const bg2 = ctx.createLinearGradient(cx - bw / 2, by, cx + bw / 2, by + bh);
+    //       bg2.addColorStop(0, '#8B4513'); bg2.addColorStop(.5, '#6B3010'); bg2.addColorStop(1, '#4a1e08');
+    //       ctx.fillStyle = bg2; ctx.fill();
+    //       const buckW = 42 * s, buckH = 36 * s, buckX = cx + bw / 2 - buckW / 2 - 10 * s, buckY = cy - buckH / 2;
+    //       rr(ctx, buckX, buckY, buckW, buckH, 5 * s);
+    //       const bkG = ctx.createLinearGradient(buckX, buckY, buckX + buckW, buckY + buckH);
+    //       bkG.addColorStop(0, '#f0c96e'); bkG.addColorStop(.5, '#d4a843'); bkG.addColorStop(1, '#906010');
+    //       ctx.fillStyle = bkG; ctx.fill();
+    //       rr(ctx, buckX + 8 * s, buckY + 7 * s, buckW - 16 * s, buckH - 14 * s, 3 * s); ctx.fillStyle = 'rgba(0,0,0,.4)'; ctx.fill();
+    //       ctx.font = `900 ${9 * s}px Arial Black`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    //       ctx.fillStyle = '#f0c96e'; ctx.fillText('A1', buckX + buckW / 2, cy); ctx.restore();
+    //     })(W * .65, H * .32);
+    //     // Tie
+    //     (function (cx, cy) {
+    //       ctx.save(); ctx.shadowColor = 'rgba(0,0,0,.5)'; ctx.shadowBlur = 20 * s;
+    //       ctx.beginPath(); ctx.moveTo(cx - 14 * s, cy - 60 * s); ctx.lineTo(cx + 14 * s, cy - 60 * s);
+    //       ctx.lineTo(cx + 10 * s, cy - 76 * s); ctx.lineTo(cx, cy - 82 * s); ctx.lineTo(cx - 10 * s, cy - 76 * s); ctx.closePath();
+    //       const kg = ctx.createLinearGradient(cx - 14 * s, cy - 82 * s, cx + 14 * s, cy - 60 * s);
+    //       kg.addColorStop(0, '#2a3f80'); kg.addColorStop(1, '#1a2f60'); ctx.fillStyle = kg; ctx.fill();
+    //       ctx.beginPath(); ctx.moveTo(cx - 14 * s, cy - 60 * s); ctx.lineTo(cx + 14 * s, cy - 60 * s);
+    //       ctx.lineTo(cx + 20 * s, cy + 10 * s); ctx.lineTo(cx, cy + 65 * s); ctx.lineTo(cx - 20 * s, cy + 10 * s); ctx.closePath();
+    //       const tg2 = ctx.createLinearGradient(cx - 20 * s, cy - 60 * s, cx + 20 * s, cy + 65 * s);
+    //       tg2.addColorStop(0, '#2a3f90'); tg2.addColorStop(.5, '#1a2f70'); tg2.addColorStop(1, '#0d1840');
+    //       ctx.fillStyle = tg2; ctx.fill();
+    //       ctx.strokeStyle = 'rgba(212,168,67,.5)'; ctx.lineWidth = 1.2 * s;
+    //       ctx.beginPath(); ctx.moveTo(cx - 14 * s, cy - 60 * s); ctx.lineTo(cx + 14 * s, cy - 60 * s);
+    //       ctx.lineTo(cx + 20 * s, cy + 10 * s); ctx.lineTo(cx, cy + 65 * s); ctx.lineTo(cx - 20 * s, cy + 10 * s); ctx.closePath(); ctx.stroke(); ctx.restore();
+    //     })(W * .8, H * .5);
+    //     drawFloatingBadge(ctx, W * .73, H * .1, 'Complete Uniform Accessories', '#f0c96e', s);
+    //     drawGoldLines(ctx, W, H, '#f0c96e');
+    //   }
+
+    //   function drawSlide_Logo(ctx, W, H) {
+    //     makeBg(ctx, W, H, ['#0a0f2e', '#0d1540', '#162060'], '#d4a843');
+    //     const s = Math.min(W, H) / 700, cx = W * .75, cy = H * .46;
+    //     ctx.save(); ctx.shadowColor = 'rgba(212,168,67,.4)'; ctx.shadowBlur = 60 * s;
+    //     rr(ctx, cx - 80 * s, cy - 90 * s, 160 * s, 180 * s, 14 * s);
+    //     const pg = ctx.createLinearGradient(cx - 80 * s, cy - 90 * s, cx + 80 * s, cy + 90 * s);
+    //     pg.addColorStop(0, '#1a2560'); pg.addColorStop(1, '#0a1230');
+    //     ctx.fillStyle = pg; ctx.fill(); ctx.strokeStyle = 'rgba(212,168,67,.4)'; ctx.lineWidth = 2 * s; ctx.stroke(); ctx.restore();
+    //     ctx.beginPath(); ctx.arc(cx, cy, 62 * s, 0, Math.PI * 2);
+    //     const rg = ctx.createLinearGradient(cx - 62 * s, cy - 62 * s, cx + 62 * s, cy + 62 * s);
+    //     rg.addColorStop(0, '#f0c96e'); rg.addColorStop(.5, '#d4a843'); rg.addColorStop(1, '#906010');
+    //     ctx.strokeStyle = rg; ctx.lineWidth = 4.5 * s; ctx.stroke();
+    //     ctx.beginPath(); ctx.arc(cx, cy, 58 * s, 0, Math.PI * 2);
+    //     const ig = ctx.createRadialGradient(cx - 14 * s, cy - 14 * s, 0, cx, cy, 58 * s);
+    //     ig.addColorStop(0, '#243878'); ig.addColorStop(1, '#0a1230'); ctx.fillStyle = ig; ctx.fill();
+    //     ctx.save(); ctx.shadowColor = 'rgba(0,0,0,.8)'; ctx.shadowBlur = 8 * s;
+    //     ctx.font = `900 ${36 * s}px Arial Black`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    //     const tg3 = ctx.createLinearGradient(cx - 22 * s, cy - 18 * s, cx + 22 * s, cy + 18 * s);
+    //     tg3.addColorStop(0, '#f0c96e'); tg3.addColorStop(.5, '#fff'); tg3.addColorStop(1, '#d4a843');
+    //     ctx.fillStyle = tg3; ctx.fillText('A1', cx, cy - 4 * s);
+    //     ctx.font = `700 ${7 * s}px Arial`; ctx.fillStyle = 'rgba(212,168,67,.8)'; ctx.fillText('UNIFORMS', cx, cy + 16 * s); ctx.restore();
+    //     drawUniformCard(ctx, cx - 130 * s, cy - 20 * s, W, H, s * .55, '#1a2f6e');
+    //     drawUniformCard(ctx, cx + 145 * s, cy + 30 * s, W, H, s * .48, '#0d1840');
+    //     drawFloatingBadge(ctx, W * .73, H * .1, 'School Embroidery & Logos', '#d4a843', s);
+    //     drawGoldLines(ctx, W, H, '#d4a843');
+    //   }
+
+    //   function drawSlide_Bulk(ctx, W, H) {
+    //     makeBg(ctx, W, H, ['#1a0808', '#280c0c', '#300e0e'], '#e05555');
+    //     const s = Math.min(W, H) / 700;
+    //     const colors = ['#1a2f6e', '#2a3f80', '#0d1840', '#1a3060', '#243888', '#0f2050'];
+    //     for (let r = 0; r < 2; r++) for (let c = 0; c < 3; c++) drawUniformCard(ctx, W * .57 + c * 105 * s, H * .18 + r * 105 * s * 1.1, W, H, s * .62, colors[r * 3 + c]);
+    //     ctx.save(); ctx.font = `900 ${80 * s}px Arial Black`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    //     ctx.fillStyle = 'rgba(224,85,85,.08)'; ctx.fillText('500+', W * .75, H * .88);
+    //     ctx.font = `600 ${9 * s}px Arial`; ctx.fillStyle = 'rgba(224,85,85,.4)'; ctx.fillText('SCHOOLS SUPPLIED', W * .75, H * .94); ctx.restore();
+    //     drawFloatingBadge(ctx, W * .73, H * .08, 'Trusted By 500+ Schools', '#e05555', s);
+    //     drawFloatingBadge(ctx, W * .88, H * .82, 'Bulk Orders Welcome', '#f0c96e', s * .85);
+    //     drawGoldLines(ctx, W, H, '#e05555');
+    //   }
+
+    //   /* SLIDE DATA */
+    //   const SLIDES = [
+    //     { badge: '★ Est. 2016 · Premium Uniforms', title1: 'DRESS TO', title2: 'IMPRESS', desc: "Pakistan's most trusted school uniform manufacturer — crafting quality, comfort & pride for every child.", btn1: { label: '<i class="fas fa-tshirt"></i> View Products', href: '#products', cls: 'bg' }, btn2: { label: '<i class="fas fa-phone-alt"></i> Get Quote', href: '#contact', cls: 'bo' }, decoNum: '01', decoLabel: 'Dress Uniforms', draw: drawSlide_Shirts },
+    //     { badge: '★ Girls Collection · Frocks & Skirts', title1: 'ELEGANCE', title2: 'PERFECTED', desc: 'Beautifully tailored frocks and skirts — lightweight, breathable, and designed for all-day comfort.', btn1: { label: '<i class="fas fa-tshirt"></i> Shop Frocks', href: '#products', cls: 'bg' }, btn2: { label: '<i class="fas fa-palette"></i> Custom Color', href: '#contact', cls: 'bo' }, decoNum: '02', decoLabel: 'Frocks & Skirts', draw: drawSlide_FrockSkirt },
+    //     { badge: '★ P.T. Sports Collection', title1: 'BUILT FOR', title2: 'CHAMPIONS', desc: 'Moisture-wicking sports uniforms for P.T. & athletics — dry-fit fabric that keeps students cool and active.', btn1: { label: '<i class="fas fa-running"></i> Sports Range', href: '#products', cls: 'bg' }, btn2: { label: '<i class="fas fa-phone-alt"></i> Bulk Orders', href: '#contact', cls: 'bo' }, decoNum: '03', decoLabel: 'P.T. Uniforms', draw: drawSlide_Sports },
+    //     { badge: '★ Accessories · Belts, Ties & More', title1: 'COMPLETE', title2: 'THE LOOK', desc: 'Premium school ties, leather belts, embroidered logos, and socks — every detail finished to perfection.', btn1: { label: '<i class="fas fa-crown"></i> Accessories', href: '#products', cls: 'bg' }, btn2: { label: '<i class="fas fa-certificate"></i> Custom Logo', href: '#contact', cls: 'bo' }, decoNum: '04', decoLabel: 'Accessories', draw: drawSlide_Accessories },
+    //     { badge: '★ School Branding · Embroidery', title1: 'YOUR CREST', title2: 'OUR CRAFT', desc: 'Pixel-perfect school logos embroidered or heat-transferred onto any garment — 500+ schools trust A1.', btn1: { label: '<i class="fas fa-medal"></i> View Logos', href: '#products', cls: 'bg' }, btn2: { label: '<i class="fas fa-handshake"></i> Partner With Us', href: '#contact', cls: 'bo' }, decoNum: '05', decoLabel: 'Embroidery', draw: drawSlide_Logo },
+    //     { badge: '★ Custom Bulk Orders · Schools & Institutions', title1: 'QUALITY AT', title2: 'ANY SCALE', desc: 'From 10 to 10,000 — we handle bulk orders with precision, consistency, and on-time delivery guaranteed.', btn1: { label: '<i class="fas fa-tshirt"></i> Get Started', href: '#contact', cls: 'bg' }, btn2: { label: '<i class="fas fa-phone-alt"></i> Call Now', href: '#contact', cls: 'bo' }, decoNum: '06', decoLabel: 'Bulk Orders', draw: drawSlide_Bulk },
+    //   ];
+
+    //   const track = document.getElementById('slTrack');
+    //   const thumbsEl = document.getElementById('slThumbs');
+    //   const dotsEl = document.getElementById('slDots');
+    //   const curNumEl = document.getElementById('slCurNum');
+    //   const totNumEl = document.getElementById('slTotNum');
+    //   const prog = document.getElementById('slProg');
+    //   const N = SLIDES.length;
+    //   totNumEl.textContent = String(N).padStart(2, '0');
+
+    //   const slideEls = [], thumbEls = [];
+
+    //   SLIDES.forEach((data, i) => {
+    //     const slide = document.createElement('div');
+    //     slide.className = 'sl-slide';
+    //     slide.innerHTML = `
+    //   <canvas class="sl-canvas" id="slc${i}"></canvas>
+    //   <div class="sl-overlay"></div>
+    //   <div class="sl-content">
+    //     <div class="sl-inner">
+    //       <div class="sl-badge"><i class="fas fa-star"></i> ${data.badge}</div>
+    //       <h1 class="sl-title">
+    //         <span class="wh">${data.title1}</span>
+    //         <span class="go">${data.title2}</span>
+    //       </h1>
+    //       <p class="sl-desc">${data.desc}</p>
+    //       <div class="sl-btns">
+    //         <a href="${data.btn1.href}" class="${data.btn1.cls}">${data.btn1.label}</a>
+    //         <a href="${data.btn2.href}" class="${data.btn2.cls}">${data.btn2.label}</a>
+    //       </div>
+    //     </div>
+    //   </div>
+    //   <div class="sl-deco">
+    //     <span class="sl-deco-num">${data.decoNum}</span>
+    //     <span class="sl-deco-label">${data.decoLabel}</span>
+    //   </div>`;
+    //     track.appendChild(slide);
+    //     slideEls.push(slide);
+
+    //     const cvs = document.getElementById('slc' + i);
+    //     const redraw = () => { cvs.width = innerWidth; cvs.height = innerHeight; data.draw(cvs.getContext('2d'), cvs.width, cvs.height); };
+    //     redraw();
+    //     window.addEventListener('resize', redraw);
+
+    //     const tw = document.createElement('div');
+    //     tw.className = 'sl-thumb'; tw.dataset.idx = i;
+    //     const tc = document.createElement('canvas'); tc.width = 144; tc.height = 90;
+    //     data.draw(tc.getContext('2d'), 144, 90);
+    //     tw.appendChild(tc); thumbsEl.appendChild(tw); thumbEls.push(tw);
+
+    //     const dot = document.createElement('button');
+    //     dot.className = 'sl-dot'; dot.dataset.idx = i; dot.setAttribute('aria-label', 'Slide ' + (i + 1));
+    //     dotsEl.appendChild(dot);
+    //   });
+
+    //   let current = 0, timer = null;
+
+    //   function goTo(idx) {
+    //     idx = ((idx % N) + N) % N;
+    //     slideEls[current].classList.remove('active');
+    //     thumbEls[current].classList.remove('active');
+    //     dotsEl.children[current].classList.remove('active');
+    //     current = idx;
+    //     slideEls[current].classList.add('active');
+    //     thumbEls[current].classList.add('active');
+    //     dotsEl.children[current].classList.add('active');
+    //     curNumEl.textContent = String(current + 1).padStart(2, '0');
+    //     prog.classList.remove('go'); prog.style.transition = 'none'; prog.style.width = '0%';
+    //     void prog.offsetWidth;
+    //     prog.classList.add('go');
+    //   }
+
+    //   function startAuto() { clearInterval(timer); timer = setInterval(() => goTo(current + 1), 7000); }
+    //   function restartAuto() { clearInterval(timer); startAuto(); }
+
+    //   document.getElementById('slPrev').addEventListener('click', () => { goTo(current - 1); restartAuto(); });
+    //   document.getElementById('slNext').addEventListener('click', () => { goTo(current + 1); restartAuto(); });
+    //   thumbsEl.querySelectorAll('.sl-thumb').forEach(t => t.addEventListener('click', () => { goTo(+t.dataset.idx); restartAuto(); }));
+    //   dotsEl.querySelectorAll('.sl-dot').forEach(d => d.addEventListener('click', () => { goTo(+d.dataset.idx); restartAuto(); }));
+
+    //   let tx = 0;
+    //   document.getElementById('hero').addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
+    //   document.getElementById('hero').addEventListener('touchend', e => {
+    //     const diff = tx - e.changedTouches[0].clientX;
+    //     if (Math.abs(diff) > 50) { goTo(current + (diff > 0 ? 1 : -1)); restartAuto(); }
+    //   }, { passive: true });
+
+    //   document.addEventListener('keydown', e => {
+    //     if (e.key === 'ArrowLeft') { goTo(current - 1); restartAuto(); }
+    //     if (e.key === 'ArrowRight') { goTo(current + 1); restartAuto(); }
+    //   });
+
+    //   goTo(0);
+    //   startAuto();
+    // })();
+  </script>
+</body>
+
+</html>
